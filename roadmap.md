@@ -1,3 +1,3 @@
-- [ ] Remove cut-out layers and intercepted scrolling.
-- [ ] Redesign the homepage and shared public navigation with a minimal Clarvos-inspired style.
-- [ ] Verify desktop and mobile navigation and normal section scrolling.
+- [x] Remove cut-out layers and intercepted scrolling.
+- [x] Redesign the homepage and shared public navigation with a minimal Clarvos-inspired style.
+- [x] Verify desktop and mobile navigation and normal section scrolling.
