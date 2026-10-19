@@ -1,26 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { motion } from "motion/react";
-import {
-  ArrowUpRight,
-  Sparkles,
-  Users,
-  FolderGit2,
-  Briefcase,
-  Rocket,
-  Code2,
-  Target,
-  Zap,
-  Heart,
-} from "lucide-react";
+import { ArrowUpRight, ArrowRight, Users, FolderGit2, Briefcase, Rocket, Check } from "lucide-react";
 import { MarketingLayout } from "@/components/marketing-layout";
-import { HowItWorks } from "@/components/how-it-works";
-import { TechMarquee, LiveStats } from "@/components/landing-visuals";
-import { FeatureCarousel } from "@/components/feature-carousel";
-import { TestimonialsShowcase } from "@/components/testimonials-showcase";
-import { OpportunityNetworkSection } from "@/components/opportunity-network";
+import { Button } from "@/components/ui/button";
 import { FeaturedBlogsSection } from "@/components/featured-blogs";
-import { ScrollCutoutStack } from "@/components/scroll-cutout-stack";
-
+import studentBuilders from "@/assets/student-builders.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -36,9 +19,9 @@ export const Route = createFileRoute("/")({
       { property: "og:description", content: "Off-campus drives, alumni intros and proof-of-work for the ~3,900 Indian engineering colleges that aren't IITs." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { property: "og:url", content: "https://campusx-inquo.lovable.app/" },
+      { property: "og:url", content: "https://tier2x.lovable.app/" },
     ],
-    links: [{ rel: "canonical", href: "https://campusx-inquo.lovable.app/" }],
+    links: [{ rel: "canonical", href: "https://tier2x.lovable.app/" }],
     scripts: [
       {
         type: "application/ld+json",
@@ -46,7 +29,7 @@ export const Route = createFileRoute("/")({
           "@context": "https://schema.org",
           "@type": "Organization",
           name: "Tier2X",
-          url: "https://campusx-inquo.lovable.app/",
+          url: "https://tier2x.lovable.app/",
           email: "campusx4@gmail.com",
           founder: { "@type": "Person", name: "Suman Kumar" },
           address: { "@type": "PostalAddress", addressLocality: "Purnia", addressRegion: "Bihar", postalCode: "854315", addressCountry: "IN" },
@@ -58,189 +41,63 @@ export const Route = createFileRoute("/")({
   component: Landing,
 });
 
-const features = [
-  { icon: Users, title: "Discover", italic: "peers", body: "Find collaborators by skill, college, and what they're shipping right now." },
-  { icon: FolderGit2, title: "Project", italic: "hub", body: "Showcase live demos with GitHub repos. Recruit teammates in one click." },
-  { icon: Briefcase, title: "Internship", italic: "board", body: "Curated opportunities from companies actually hiring students." },
-  { icon: Rocket, title: "Startup", italic: "incubator", body: "Pitch ideas, find co-founders, ship before graduation." },
-];
-
-
-
-
-const why = [
-  { icon: Target, title: "Built for", italic: "students", body: "Not LinkedIn. Not a job board. A workspace for people who actually want to build." },
-  { icon: Zap, title: "Velocity over", italic: "vanity", body: "We celebrate shipped projects, not follower counts." },
-  { icon: Heart, title: "Made in", italic: "India", body: "By a student, for students — from Purnia to every campus." },
-];
-
+const paths = [
+  { number: "01", icon: Briefcase, title: "Find your opportunity.", body: "Off-campus jobs, internships, and hackathons. Explore what’s next, beyond your placement cell.", to: "/jobs", label: "Explore opportunities" },
+  { number: "02", icon: Users, title: "Build your network.", body: "Meet peers who share your skills and ambitions. Connect with alumni who’ve been where you are.", to: "/discover", label: "Meet the community" },
+  { number: "03", icon: FolderGit2, title: "Show what you can do.", body: "Bring your projects, live demos, and GitHub repos together. Let your work make the introduction.", to: "/projects", label: "Explore projects" },
+] as const;
 
 function Landing() {
   return (
     <MarketingLayout>
-      <ScrollCutoutStack>
-      {/* Hero */}
-      <section className="relative px-4 pb-24 pt-16 md:px-8 md:pt-24">
-        <div className="mx-auto max-w-5xl text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="mx-auto inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold/5 px-4 py-1.5 text-xs text-gold"
-          >
-            <Sparkles className="h-3 w-3" /> Off-campus jobs and alumni intros for Tier-2/3 students
-          </motion.div>
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="mt-6 font-display text-5xl leading-[1.02] tracking-tight md:text-7xl lg:text-8xl"
-          >
-            Your college can't see <br />
-            off-campus. <span className="italic-serif">We can.</span>
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="mx-auto mt-7 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg"
-          >
-            Off-campus drives, alumni intros, and proof-of-work — for the
-            ~3,900 Indian engineering colleges that aren't IITs.
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="mt-9 flex flex-wrap justify-center gap-3"
-          >
-            <Link
-              to="/dashboard"
-              className="btn-ink group"
-            >
-              Get early access
-              <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-            </Link>
-            <Link to="/how-it-works" className="btn-ghost">
-              How it works
-            </Link>
-          </motion.div>
-
-          <FeatureCarousel />
+      <section className="minimal-hero">
+        <div className="mx-auto max-w-6xl px-6 py-12 md:px-10 md:py-16">
+          <p className="mb-6 text-xs font-medium uppercase tracking-widest text-muted-foreground">India’s student builder workspace</p>
+          <h1 className="minimal-headline">Tier2X.<br />Beyond your campus.<br /><span className="text-gold">Closer to what’s next.</span></h1>
+          <div className="mt-10 grid items-start gap-10 md:grid-cols-[0.9fr_1.3fr] md:gap-16">
+            <div className="pb-2 md:pt-3">
+              <p className="max-w-md text-base leading-relaxed text-muted-foreground md:text-lg">Off-campus opportunities, alumni introductions, and a place to show your work — for students at India’s Tier-2 and Tier-3 colleges.</p>
+              <Button asChild variant="outline" className="mt-8 h-12 rounded-full border-border bg-transparent px-6 text-foreground hover:bg-secondary hover:text-secondary-foreground"><Link to="/dashboard">Get early access <ArrowUpRight /></Link></Button>
+              <p className="mt-8 flex items-center gap-2 text-xs text-muted-foreground"><Check className="h-4 w-4 text-gold" /> By a student. For student builders.</p>
+            </div>
+            <figure className="relative m-0">
+              <img src={studentBuilders} alt="Indian student builders collaborating on a laptop project" width={1536} height={1024} className="aspect-[16/9] w-full rounded-lg object-cover" />
+              <figcaption className="mt-3 flex items-center justify-between gap-4 text-xs text-muted-foreground"><span>Build something that opens doors.</span><span className="text-gold">Opportunity starts here ↗</span></figcaption>
+            </figure>
+          </div>
         </div>
       </section>
 
-      {/* Tech marquee */}
-      <TechMarquee />
-
-      {/* Features */}
-      <section className="px-4 py-20 md:px-8">
+      <section className="px-6 py-20 md:px-10 md:py-28">
         <div className="mx-auto max-w-6xl">
-          <div className="mb-10 text-center">
-            <div className="text-[10px] font-medium uppercase tracking-[0.22em] text-muted-foreground">— What's inside</div>
-            <h2 className="mt-3 font-display text-4xl md:text-5xl">
-              Four surfaces. One <span className="italic-serif">workspace.</span>
-            </h2>
+          <div className="grid gap-6 md:grid-cols-[1.1fr_0.9fr] md:gap-20">
+            <h2 className="minimal-section-title">Your college is a starting point.<br /><span className="text-muted-foreground">Not your limit.</span></h2>
+            <div className="md:pt-2"><p className="text-base leading-relaxed text-muted-foreground md:text-lg">Great work can come from any campus. Tier2X brings opportunities, people, and proof-of-work into one place — so you can focus on moving forward.</p><Button asChild variant="link" className="mt-5 h-auto p-0 text-foreground"><Link to="/how-it-works">See how it works <ArrowRight /></Link></Button></div>
           </div>
-          <div className="grid gap-px overflow-hidden rounded-3xl border border-border bg-border md:grid-cols-2 lg:grid-cols-4">
-            {features.map((f, i) => {
-              const Icon = f.icon;
-              return (
-                <motion.div
-                  key={f.title}
-                  initial={{ opacity: 0, y: 14 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: i * 0.08 }}
-                  className="card-noir-hover bg-surface p-7"
-                >
-                  <Icon className="h-5 w-5 text-gold" />
-                  <h3 className="mt-6 font-display text-2xl">
-                    {f.title} <span className="italic-serif">{f.italic}</span>
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{f.body}</p>
-                </motion.div>
-              );
-            })}
+          <div className="mt-16 grid md:grid-cols-3">
+            {paths.map(({ number, icon: Icon, title, body, to, label }) => <article key={number} className="minimal-path">
+              <div className="flex items-center justify-between"><span className="font-mono text-xs text-muted-foreground">{number}</span><Icon className="h-6 w-6 text-foreground" strokeWidth={1.5} /></div>
+              <h3 className="mt-10 text-2xl font-medium">{title}</h3><p className="mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground">{body}</p>
+              <Button asChild variant="link" className="mt-7 h-auto justify-start p-0 text-sm text-foreground"><Link to={to}>{label} <ArrowUpRight /></Link></Button>
+            </article>)}
           </div>
         </div>
       </section>
 
-      {/* How */}
-      <HowItWorks />
-
-      {/* Opportunity + Network layers */}
-      <OpportunityNetworkSection />
-
-
-
-
-      {/* Live stats counters */}
-      <LiveStats />
-
-
-
-
-      {/* Why */}
-      <section className="px-4 py-20 md:px-8">
-        <div className="mx-auto max-w-6xl">
-          <div className="mb-12 text-center">
-            <div className="text-[10px] font-medium uppercase tracking-[0.22em] text-muted-foreground">— Why Tier2X</div>
-            <h2 className="mt-3 font-display text-4xl md:text-5xl">
-              Because shipping beats <span className="italic-serif">scrolling.</span>
-            </h2>
-          </div>
-          <div className="grid gap-6 md:grid-cols-3">
-            {why.map((w, i) => {
-              const Icon = w.icon;
-              return (
-                <motion.div
-                  key={w.title}
-                  initial={{ opacity: 0, y: 14 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: i * 0.1 }}
-                  className="card-noir card-noir-hover rounded-2xl p-7"
-                >
-                  <Icon className="h-5 w-5 text-gold" />
-                  <h3 className="mt-5 font-display text-2xl leading-tight">
-                    {w.title} <span className="italic-serif">{w.italic}</span>
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{w.body}</p>
-                </motion.div>
-              );
-            })}
+      <section className="border-y border-border bg-surface px-6 py-20 md:px-10 md:py-24">
+        <div className="mx-auto grid max-w-6xl gap-12 md:grid-cols-2 md:gap-24">
+          <div><p className="text-xs font-medium uppercase tracking-widest text-muted-foreground">Less scrolling. More shipping.</p><h2 className="minimal-section-title mt-5">Make your next<br />move count.</h2><Button asChild className="mt-8 h-12 rounded-full px-6 shadow-none"><Link to="/dashboard">Enter Tier2X <ArrowUpRight /></Link></Button></div>
+          <div className="divide-y divide-border">
+            {[
+              { icon: FolderGit2, title: "A portfolio, not just a profile.", text: "Share the projects you’ve actually built.", to: "/devprofile" },
+              { icon: Users, title: "People who get your journey.", text: "Find collaborators, peers, and alumni.", to: "/for-alumni" },
+              { icon: Rocket, title: "An idea worth building.", text: "Find teammates and take your startup forward.", to: "/startups" },
+            ].map(({ icon: Icon, title, text, to }) => <Link key={title} to={to} className="group flex items-start gap-5 py-7 first:pt-0"><Icon className="mt-1 h-5 w-5 shrink-0" strokeWidth={1.5} /><div className="flex-1"><h3 className="text-lg font-medium">{title}</h3><p className="mt-2 text-sm text-muted-foreground">{text}</p></div><ArrowUpRight className="h-5 w-5 shrink-0 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" /></Link>)}
           </div>
         </div>
       </section>
-
-      {/* Testimonials */}
-      <TestimonialsShowcase />
-
-      {/* Featured blog posts */}
       <FeaturedBlogsSection />
-
-
-
-      {/* CTA */}
-      <section className="px-4 py-20 md:px-8">
-        <div className="ambient-glow mx-auto max-w-4xl rounded-3xl border border-gold/20 bg-surface p-12 text-center md:p-16">
-          <Code2 className="mx-auto h-6 w-6 text-gold" />
-          <h2 className="mt-6 font-display text-4xl leading-tight md:text-5xl">
-            Stop lurking. <br />
-            <span className="italic-serif">Start shipping.</span>
-          </h2>
-          <p className="mx-auto mt-5 max-w-lg text-sm text-muted-foreground">
-            Join the workspace where India's next generation of builders meet.
-          </p>
-          <Link to="/dashboard" className="btn-ink group mt-8">
-            Enter Tier2X
-            <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-          </Link>
-        </div>
-      </section>
-      </ScrollCutoutStack>
+      <section className="px-6 py-20 text-center md:px-10 md:py-28"><p className="text-xs uppercase tracking-widest text-muted-foreground">From Purnia. For every campus.</p><h2 className="minimal-section-title mt-5">Your next chapter<br />starts with a small step.</h2><Button asChild className="mt-8 h-12 rounded-full px-7 shadow-none"><Link to="/dashboard">Let’s get started <ArrowUpRight /></Link></Button></section>
     </MarketingLayout>
   );
 }

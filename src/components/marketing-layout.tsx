@@ -1,9 +1,8 @@
 import { Link } from "@tanstack/react-router";
-import { Mail, MapPin, ArrowUpRight, Menu, X } from "lucide-react";
-import { useState, type ReactNode } from "react";
-import { AnimatePresence, motion } from "motion/react";
+import { ArrowUpRight, Menu, X } from "lucide-react";
+import { useEffect, useState, type ReactNode } from "react";
+import { Button } from "@/components/ui/button";
 
-/** Primary nav — kept short on purpose so nothing feels hidden. */
 const navLinks = [
   { to: "/", label: "Home" },
   { to: "/how-it-works", label: "How it works" },
@@ -33,203 +32,26 @@ const footerLinks = [
 
 export function MarketingLayout({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false);
-
+  useEffect(() => {
+    if (!open) return;
+    const close = (event: KeyboardEvent) => { if (event.key === "Escape") setOpen(false); };
+    window.addEventListener("keydown", close);
+    return () => window.removeEventListener("keydown", close);
+  }, [open]);
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      {/* Glass Navbar */}
-      <header
-        className="fixed inset-x-0 top-4 z-50 mx-auto flex max-w-6xl items-center justify-between gap-3 rounded-full border border-white/10 bg-background/40 px-4 py-3 backdrop-blur-2xl md:px-6"
-        style={{ boxShadow: "0 8px 32px oklch(0 0 0 / 0.35), inset 0 1px 0 oklch(1 0 0 / 0.06)" }}
-      >
-        <Link to="/" className="flex min-w-0 items-center gap-2">
-          <div className="grid h-8 w-8 shrink-0 place-items-center rounded-md border border-gold/40 bg-gold/10 font-display text-lg italic text-gold">
-            X
-          </div>
-          <span className="truncate font-display text-xl leading-none">
-            Tier2<span className="italic-serif">X</span>
-          </span>
-        </Link>
-
-        <nav className="hidden items-center gap-6 lg:flex">
-          {navLinks.slice(1).map((l) => (
-            <Link
-              key={l.to}
-              to={l.to}
-              activeProps={{ className: "text-gold" }}
-              className={
-                l.to === "/for-alumni"
-                  ? "text-sm font-medium text-gold transition hover:brightness-110"
-                  : "text-sm text-foreground/70 transition hover:text-gold"
-              }
-            >
-              {l.label}
-            </Link>
-          ))}
-        </nav>
-
-        <div className="flex shrink-0 items-center gap-2">
-          <Link
-            to="/auth"
-            className="hidden text-sm text-foreground/70 transition hover:text-gold md:inline"
-          >
-            Log in
-          </Link>
-          <Link
-            to="/auth"
-            className="group inline-flex items-center gap-1.5 rounded-full bg-gold px-4 py-2 text-xs font-medium text-primary-foreground transition hover:brightness-110 md:text-sm"
-          >
-            Get Early Access
-            <ArrowUpRight className="h-3.5 w-3.5 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-          </Link>
-          <button
-            onClick={() => setOpen((v) => !v)}
-            aria-label={open ? "Close menu" : "Open menu"}
-            aria-expanded={open}
-            className="grid h-9 w-9 place-items-center rounded-full border border-border bg-surface text-foreground/80 transition hover:border-gold/40 hover:text-gold lg:hidden"
-          >
-            {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
-          </button>
-        </div>
+    <div className="minimal-marketing min-h-screen bg-background text-foreground">
+      <header className="relative z-50 mx-auto flex max-w-6xl items-center justify-between gap-5 bg-background px-6 py-5 md:px-10 md:py-6">
+        <Link to="/" className="shrink-0 text-2xl font-semibold" aria-label="Tier2X home">Tier2X<span className="text-muted-foreground">.</span></Link>
+        <nav aria-label="Main navigation" className="hidden items-center gap-6 lg:flex">{navLinks.slice(1).map(l => <Link key={l.to} to={l.to} activeProps={{ className: "text-foreground" }} className="text-xs text-muted-foreground transition-colors hover:text-foreground">{l.label}</Link>)}</nav>
+        <div className="flex items-center gap-3 md:gap-5"><Link to="/auth" className="hidden text-sm text-muted-foreground hover:text-foreground md:block">Log in</Link><Button asChild className="h-10 rounded-full px-4 text-xs shadow-none md:px-5 md:text-sm"><Link to="/auth">Get early access <ArrowUpRight /></Link></Button><Button variant="ghost" size="icon" className="shrink-0 lg:hidden" onClick={() => setOpen(v => !v)} aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open} aria-controls="mobile-navigation">{open ? <X /> : <Menu />}</Button></div>
       </header>
-
-      {/* Mobile menu */}
-      <AnimatePresence>
-        {open && (
-          <>
-            <motion.button
-              key="scrim"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setOpen(false)}
-              aria-label="Close menu"
-              className="fixed inset-0 z-40 bg-background/70 backdrop-blur-sm lg:hidden"
-            />
-            <motion.div
-              key="panel"
-              initial={{ opacity: 0, y: -12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -12 }}
-              transition={{ type: "spring", stiffness: 260, damping: 26 }}
-              className="fixed inset-x-4 top-20 z-50 max-h-[75vh] overflow-y-auto rounded-3xl border border-white/10 bg-background/95 p-5 backdrop-blur-2xl lg:hidden"
-            >
-              <div className="mb-2 text-[10px] uppercase tracking-[0.22em] text-muted-foreground">— Menu</div>
-              <ul className="space-y-1">
-                {navLinks.map((l) => (
-                  <li key={l.to}>
-                    <Link
-                      to={l.to}
-                      onClick={() => setOpen(false)}
-                      activeProps={{ className: "bg-gold/10 text-gold" }}
-                      className="flex items-center justify-between rounded-xl px-3 py-3 text-sm text-foreground/80 transition hover:bg-surface hover:text-foreground"
-                    >
-                      {l.label}
-                      <ArrowUpRight className="h-3.5 w-3.5 opacity-50" />
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-
-              <div className="hairline my-4" />
-              <div className="mb-2 text-[10px] uppercase tracking-[0.22em] text-muted-foreground">— Inside the app</div>
-              <ul className="grid grid-cols-2 gap-1">
-                {featureLinks.map((l) => (
-                  <li key={l.to}>
-                    <Link
-                      to={l.to}
-                      onClick={() => setOpen(false)}
-                      className="block rounded-lg px-3 py-2 text-xs text-foreground/70 transition hover:bg-surface hover:text-foreground"
-                    >
-                      {l.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
-
-      <main className="ambient-glow pt-28">{children}</main>
-
-      {/* Glass Footer */}
-      <footer className="relative mt-24 px-4 pb-8 md:px-8">
-        <div
-          className="mx-auto max-w-6xl rounded-3xl border border-white/10 bg-background/40 p-8 backdrop-blur-2xl md:p-12"
-          style={{ boxShadow: "0 8px 40px oklch(0 0 0 / 0.4), inset 0 1px 0 oklch(1 0 0 / 0.05)" }}
-        >
-          <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
-            <div>
-              <div className="flex items-center gap-2">
-                <div className="grid h-9 w-9 place-items-center rounded-md border border-gold/40 bg-gold/10 font-display text-xl italic text-gold">
-                  X
-                </div>
-                <span className="font-display text-2xl">
-                  Tier2<span className="italic-serif">X</span>
-                </span>
-              </div>
-              <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground">
-                Where student builders ship live projects, find internships,
-                and form startup teams that <span className="italic-serif">actually</span> launch.
-              </p>
-              <div className="mt-5 space-y-2 text-xs text-muted-foreground">
-                <div className="flex items-center gap-2">
-                  <Mail className="h-3.5 w-3.5 text-gold" />
-                  <a href="mailto:campusx4@gmail.com" className="hover:text-gold">campusx4@gmail.com</a>
-                </div>
-                <div className="flex items-center gap-2">
-                  <MapPin className="h-3.5 w-3.5 text-gold" />
-                  Purnia, Bihar 854315, India
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <div className="mb-4 text-[10px] font-medium uppercase tracking-[0.22em] text-muted-foreground">— Explore</div>
-              <ul className="space-y-2.5 text-sm">
-                {navLinks.map((l) => (
-                  <li key={l.to}>
-                    <Link to={l.to} className="text-foreground/70 transition hover:text-gold">
-                      {l.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div>
-              <div className="mb-4 text-[10px] font-medium uppercase tracking-[0.22em] text-muted-foreground">— Features</div>
-              <ul className="space-y-2.5 text-sm">
-                {featureLinks.map((l) => (
-                  <li key={l.to}>
-                    <Link to={l.to} className="text-foreground/70 transition hover:text-gold">
-                      {l.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div>
-              <div className="mb-4 text-[10px] font-medium uppercase tracking-[0.22em] text-muted-foreground">— Legal</div>
-              <ul className="space-y-2.5 text-sm">
-                {footerLinks.map((l) => (
-                  <li key={l.to}>
-                    <Link to={l.to} className="text-foreground/70 transition hover:text-gold">
-                      {l.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-
-          <div className="hairline mt-10" />
-          <div className="mt-5 flex flex-col items-start justify-between gap-2 text-xs text-muted-foreground md:flex-row md:items-center">
-            <div>© {new Date().getFullYear()} Tier2X. Made in Purnia, Bihar.</div>
-            <div className="italic-serif text-gold">ship things that matter.</div>
-          </div>
-        </div>
+      {open && <nav id="mobile-navigation" aria-label="Mobile navigation" className="absolute inset-x-0 top-20 z-40 max-h-[80vh] overflow-y-auto border-b border-border bg-background px-6 py-5 shadow-lg lg:hidden"><div className="mx-auto max-w-6xl">{navLinks.map(l => <Link key={l.to} to={l.to} onClick={() => setOpen(false)} className="flex items-center justify-between border-b border-border py-4 text-base">{l.label}<ArrowUpRight className="h-4 w-4" /></Link>)}<Link to="/auth" onClick={() => setOpen(false)} className="block py-4 text-muted-foreground">Log in</Link></div></nav>}
+      <main>{children}</main>
+      <footer className="border-t border-border px-6 pb-7 pt-14 md:px-10">
+        <div className="mx-auto max-w-6xl"><div className="grid gap-10 md:grid-cols-[2fr_1fr_1fr_1fr]">
+          <div><Link to="/" className="text-3xl font-semibold">Tier2X.</Link><p className="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">A workspace for India’s student builders.<br />Opportunities. People. Proof-of-work.</p><a href="mailto:campusx4@gmail.com" className="mt-5 inline-block text-sm text-muted-foreground hover:text-foreground">campusx4@gmail.com</a><p className="mt-2 text-xs text-muted-foreground">Purnia, Bihar, India</p></div>
+          {[{title:"Explore",links:navLinks.slice(1)},{title:"Workspace",links:featureLinks},{title:"Information",links:footerLinks}].map(group => <div key={group.title}><h2 className="mb-5 text-xs font-medium text-foreground">{group.title}</h2><ul className="space-y-3">{group.links.map(l => <li key={l.to}><Link to={l.to} className="text-xs text-muted-foreground hover:text-foreground">{l.label}</Link></li>)}</ul></div>)}
+        </div><div className="mt-14 flex flex-wrap justify-between gap-4 border-t border-border pt-6 text-xs text-muted-foreground"><span>© {new Date().getFullYear()} Tier2X</span><span>Build beyond your campus.</span></div></div>
       </footer>
     </div>
   );
