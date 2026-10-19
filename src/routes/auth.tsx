@@ -5,13 +5,22 @@ import { ArrowRight, Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable";
 import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
+import studentBuilders from "@/assets/student-builders.jpg";
 
 export const Route = createFileRoute("/auth")({
   ssr: false,
   validateSearch: (s: Record<string, unknown>): { next?: string } => ({
     next: typeof s.next === "string" && s.next.startsWith("/") && !s.next.startsWith("//") ? s.next : undefined,
   }),
-  head: () => ({ meta: [{ title: "Sign in — Tier2X" }] }),
+  head: () => ({ meta: [
+    { title: "Sign in — Tier2X" },
+    { name: "description", content: "Sign in or create your Tier2X account to explore opportunities, connect with student builders, and showcase your work." },
+    { property: "og:title", content: "Sign in — Tier2X" },
+    { property: "og:description", content: "Join the Tier2X student workspace for opportunities, alumni connections, and projects." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary_large_image" },
+  ] }),
   component: AuthPage,
 });
 
@@ -104,21 +113,22 @@ function AuthPage() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <div className="mx-auto grid min-h-screen w-full max-w-6xl grid-cols-1 lg:grid-cols-2">
-        <aside className="hidden flex-col justify-between border-r border-border bg-surface p-12 lg:flex">
-          <Link to="/" className="font-display text-2xl">
-            Tier2<span className="italic-serif">X</span>
+      <div className="mx-auto grid min-h-screen w-full max-w-7xl grid-cols-1 lg:grid-cols-2">
+        <aside className="hidden flex-col justify-between minimal-hero my-4 flex-col p-10 lg:flex">
+          <Link to="/" className="text-2xl font-semibold">
+            Tier2X.
           </Link>
           <div>
-            <div className="text-[10px] uppercase tracking-[0.22em] text-muted-foreground">— For student builders</div>
-            <h1 className="mt-4 font-display text-5xl leading-[1.05]">
-              Find your <span className="italic-serif">co-founders</span>, ship real things.
+            <Link to="/" className="mb-12 block text-2xl font-semibold lg:hidden">Tier2X.</Link>
+            <div className="text-xs text-muted-foreground">— For student builders</div>
+            <h1 className="mt-4 font-display text-4xl leading-tight">
+              Beyond your campus.<br /><span className="text-gold">Closer to what’s next.</span>
             </h1>
             <p className="mt-5 max-w-md text-sm text-muted-foreground">
               Projects, internships, startup teams, AI mentor, resume builder — one workspace tuned for CS undergrads.
             </p>
           </div>
-          <div className="font-mono text-[11px] text-muted-foreground">© Tier2X · Purnia, IN</div>
+          <div><img src={studentBuilders} alt="Student builders collaborating on a coding project" width={1536} height={1024} className="mt-8 aspect-[16/9] w-full rounded-lg object-cover" /><p className="mt-5 text-xs text-muted-foreground">© Tier2X · Purnia, India</p></div>
         </aside>
 
         <main className="flex items-center justify-center p-6 md:p-12">
@@ -126,7 +136,7 @@ function AuthPage() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="card-noir w-full max-w-md rounded-3xl p-8"
+            className="w-full max-w-sm py-10"
           >
             <div className="text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
               — {mode === "signin" ? "Welcome back" : "Create account"}
@@ -136,20 +146,21 @@ function AuthPage() {
               <span className="italic-serif">Tier2X</span>
             </h2>
 
-            <button
+            <Button
+              variant="outline"
               type="button"
               onClick={google}
               disabled={loading}
-              className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl border border-border bg-background px-4 py-3 text-sm font-medium hover:border-gold/40 disabled:opacity-60"
+              className="mt-8 h-12 w-full rounded-full"
             >
-              <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden>
+              <svg width="16" height="16" viewBox="0 0 48 48" aria-hidden>
                 <path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.8 32.4 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.5 6.2 29.6 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.2-.1-2.3-.4-3.5z"/>
                 <path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 16 19 13 24 13c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.5 6.2 29.6 4 24 4 16.3 4 9.7 8.4 6.3 14.7z"/>
                 <path fill="#4CAF50" d="M24 44c5.5 0 10.5-2.1 14.3-5.5l-6.6-5.4C29.5 34.8 26.9 36 24 36c-5.2 0-9.7-3.5-11.3-8.4l-6.5 5C9.5 39.4 16.2 44 24 44z"/>
                 <path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4-4 5.4l6.6 5.4c4.6-4.2 7.1-10.4 7.1-17.3 0-1.2-.1-2.3-.4-3.5z"/>
               </svg>
               Continue with Google
-            </button>
+            </Button>
 
             <div className="my-6 flex items-center gap-3 text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
               <span className="h-px flex-1 bg-border" /> or {mode === "signin" ? "sign in" : "sign up"} with email <span className="h-px flex-1 bg-border" />
@@ -159,6 +170,8 @@ function AuthPage() {
               {mode === "signup" && (
                 <input
                   required
+                  aria-label="Full name"
+                  autoComplete="name"
                   placeholder="Full name"
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
@@ -168,6 +181,8 @@ function AuthPage() {
               <input
                 required
                 type="email"
+                aria-label="Email"
+                autoComplete="email"
                 placeholder="you@college.edu"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -176,30 +191,32 @@ function AuthPage() {
               <input
                 required
                 type="password"
+                aria-label="Password"
+                autoComplete={mode === "signin" ? "current-password" : "new-password"}
                 placeholder="Password (min 6 chars)"
                 minLength={6}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="input-ink"
               />
-              <button
+              <Button
                 type="submit"
                 disabled={loading}
-                className="btn-ink w-full justify-center disabled:opacity-60"
+                className="h-12 w-full rounded-full"
               >
                 {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <ArrowRight className="h-4 w-4" />}
                 {mode === "signin" ? "Sign in" : "Create account"}
-              </button>
+              </Button>
             </form>
 
             <p className="mt-6 text-center text-xs text-muted-foreground">
               {mode === "signin" ? "New to Tier2X?" : "Already a member?"}{" "}
-              <button
+              <Button variant="link"
                 onClick={() => setMode(mode === "signin" ? "signup" : "signin")}
-                className="text-gold hover:underline"
+                className="h-auto p-0 text-gold"
               >
                 {mode === "signin" ? "Create an account" : "Sign in"}
-              </button>
+              </Button>
             </p>
           </motion.div>
         </main>

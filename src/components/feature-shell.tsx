@@ -20,12 +20,12 @@ export function FeatureShell({ eyebrow, title, italic, body, icon: Icon, highlig
         initial={{ opacity: 0, y: 14 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-        className="card-noir relative overflow-hidden rounded-3xl p-8 md:p-12"
+        className="relative py-6 md:py-10"
       >
-        <div className="inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold/5 px-3 py-1 text-[10px] uppercase tracking-[0.22em] text-gold">
+        <div className="inline-flex items-center gap-2 py-1 text-[10px] uppercase tracking-[0.22em] text-gold">
           <Icon className="h-3 w-3" /> {eyebrow}
         </div>
-        <h1 className="mt-5 font-display text-4xl leading-[1.05] md:text-6xl">
+        <h1 className="mt-5 font-display text-4xl leading-[1.05] md:text-5xl">
           {title} <span className="italic-serif">{italic}</span>
         </h1>
         <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground">{body}</p>
