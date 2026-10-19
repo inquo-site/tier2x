@@ -9,5 +9,5 @@
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
 
-- Keep homepage cover-on-scroll behavior in the reusable ScrollCutoutStack wrapper; measure each layer's height so tall sections remain readable before pinning, and use normal flow for reduced motion.
-- Scope Lenis wheel smoothing to ScrollCutoutStack, load it after hydration, and destroy it on navigation or reduced-motion changes; preserve native touch and nested tool scrolling so the effect never traps input.
+- Keep marketing pages in normal document flow with native scrolling; section stacking and scroll interception were removed to keep navigation predictable.
+- Scope marketing design tokens under the marketing layout so public-page presentation changes do not alter authenticated workspace tools.
