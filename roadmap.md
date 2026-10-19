@@ -1,3 +1,6 @@
 - [x] Remove cut-out layers and intercepted scrolling.
 - [x] Redesign the homepage and shared public navigation with a minimal Clarvos-inspired style.
 - [x] Verify desktop and mobile navigation and normal section scrolling.
+- [ ] Apply the minimal typography and palette across authentication, workspace, tools, and admin.
+- [ ] Simplify shared workspace navigation and login presentation without changing functionality.
+- [ ] Verify signed-in and signed-out page presentation and navigation.

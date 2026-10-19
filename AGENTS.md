@@ -10,4 +10,4 @@
 <!-- LOVABLE:END -->
 
 - Keep marketing pages in normal document flow with native scrolling; section stacking and scroll interception were removed to keep navigation predictable.
-- Scope marketing design tokens under the marketing layout so public-page presentation changes do not alter authenticated workspace tools.
+- Use the same global semantic design tokens and typography across public pages, authentication, workspace tools, and admin; restrict inverted tokens to intentionally dark feature bands.
