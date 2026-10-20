@@ -4,6 +4,6 @@
 - [ ] Apply the minimal typography and palette across authentication, workspace, tools, and admin.
 - [ ] Simplify shared workspace navigation and login presentation without changing functionality.
 - [ ] Verify signed-in and signed-out page presentation and navigation.
-- [ ] Restore paused Cloud authentication (blocked if Cloud resume is disabled).
-- [ ] Repair signup/login session handling and add email password recovery.
-- [ ] Verify signup, login, profile creation, and recovery against the hosted account service.
+- [ ] Restore paused Cloud authentication — blocked: Cloud resume is disabled; needs Cloud settings/support action.
+- [x] Repair signup/login session handling and add email password recovery; forms and recovery guards tested.
+- [ ] Verify signup, login, profile creation, and recovery against the hosted account service — blocked: Cloud paused.
