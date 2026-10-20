@@ -11,3 +11,4 @@
 
 - Keep marketing pages in normal document flow with native scrolling; section stacking and scroll interception were removed to keep navigation predictable.
 - Use the same global semantic design tokens and typography across public pages, authentication, workspace tools, and admin; restrict inverted tokens to intentionally dark feature bands.
+- Keep one shared auth-state subscription in AuthProvider; recovery is a public page gated by the recovery event/token, not an ordinary signed-in session, to prevent password changes through an unrelated session.
