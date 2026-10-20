@@ -7,11 +7,13 @@ import { lovable } from "@/integrations/lovable";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import studentBuilders from "@/assets/student-builders.jpg";
+import { useAuth } from "@/hooks/use-auth";
+import { authErrorMessage, safeAuthDestination } from "@/lib/auth-flow";
 
 export const Route = createFileRoute("/auth")({
   ssr: false,
   validateSearch: (s: Record<string, unknown>): { next?: string } => ({
-    next: typeof s.next === "string" && s.next.startsWith("/") && !s.next.startsWith("//") ? s.next : undefined,
+    next: safeAuthDestination(s.next),
   }),
   head: () => ({ meta: [
     { title: "Sign in — Tier2X" },
@@ -27,7 +29,10 @@ export const Route = createFileRoute("/auth")({
 function AuthPage() {
   const navigate = useNavigate();
   const { next } = Route.useSearch();
-  const [mode, setMode] = useState<"signin" | "signup">("signin");
+  const [mode, setMode] = useState<"signin" | "signup" | "forgot">("signin");
+  const { user, loading: checkingSession, recoveryReady } = useAuth();
+  const [notice, setNotice] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");
@@ -36,28 +41,32 @@ function AuthPage() {
   const afterAuth = () => {
     const stored = typeof window !== "undefined" ? sessionStorage.getItem("auth_next") : null;
     if (stored) sessionStorage.removeItem("auth_next");
-    const target = next ?? (stored && stored.startsWith("/") && !stored.startsWith("//") ? stored : null);
+    const target = next ?? safeAuthDestination(stored);
     if (target) window.location.href = target;
     else navigate({ to: "/dashboard" });
   };
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => {
-      if (data.session) afterAuth();
-    });
-    const { data: sub } = supabase.auth.onAuthStateChange((event, session) => {
-      if (event === "SIGNED_IN" && session) afterAuth();
-    });
-    return () => sub.subscription.unsubscribe();
+    if (checkingSession || !user) return;
+    if (recoveryReady) { void navigate({ to: "/reset-password" }); return; }
+    afterAuth();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [navigate, next]);
+  }, [user, checkingSession, recoveryReady, navigate, next]);
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    setErrorMessage("");
+    setNotice("");
     try {
       const cleanEmail = email.trim().toLowerCase();
-      if (mode === "signup") {
+      if (mode === "forgot") {
+        const { error } = await supabase.auth.resetPasswordForEmail(cleanEmail, {
+          redirectTo: `${window.location.origin}/reset-password`,
+        });
+        if (error) throw error;
+        setNotice("If this email has an account, a password-reset link will arrive shortly. Check your inbox and spam folder.");
+      } else if (mode === "signup") {
         const { data, error } = await supabase.auth.signUp({
           email: cleanEmail,
           password,
@@ -73,24 +82,18 @@ function AuthPage() {
           return;
         }
         if (!data.session) {
-          toast.success("Check your inbox and click the confirmation link to activate your account.");
+          setNotice("Check your inbox and click the confirmation link to activate your account. You are not signed in yet.");
           setMode("signin");
           return;
         }
         toast.success("Account created. Welcome to Tier2X.");
-        afterAuth();
       } else {
         const { error } = await supabase.auth.signInWithPassword({ email: cleanEmail, password });
         if (error) throw error;
         toast.success("Signed in.");
-        afterAuth();
       }
-    } catch (err: any) {
-      const msg = String(err?.message ?? "");
-      if (/invalid login credentials/i.test(msg)) toast.error("Wrong email or password.");
-      else if (/email not confirmed/i.test(msg)) toast.error("Please confirm your email first — check your inbox.");
-      else if (/rate limit/i.test(msg)) toast.error("Too many attempts. Please wait a minute and try again.");
-      else toast.error(msg || "Auth failed");
+    } catch (err: unknown) {
+      setErrorMessage(authErrorMessage(err));
     } finally {
       setLoading(false);
     }
@@ -98,17 +101,31 @@ function AuthPage() {
 
   const google = async () => {
     setLoading(true);
+    setErrorMessage("");
     if (next) sessionStorage.setItem("auth_next", next);
-    const result = await lovable.auth.signInWithOAuth("google", {
-      redirect_uri: window.location.origin + "/auth",
-    });
-    if (result.error) {
-      toast.error(result.error.message ?? "Google sign-in failed");
+    try {
+      const result = await lovable.auth.signInWithOAuth("google", {
+        redirect_uri: window.location.origin + "/auth",
+      });
+      if (result.error) throw result.error;
+      if (result.redirected) return;
+    } catch (error) {
+      setErrorMessage(authErrorMessage(error));
+    } finally {
       setLoading(false);
-      return;
     }
-    if (result.redirected) return;
-    afterAuth();
+  };
+
+  const resendConfirmation = async () => {
+    if (!email.trim()) { setErrorMessage("Enter your email first."); return; }
+    setLoading(true);
+    setErrorMessage("");
+    try {
+      const { error } = await supabase.auth.resend({ type: "signup", email: email.trim().toLowerCase(), options: { emailRedirectTo: `${window.location.origin}/auth` } });
+      if (error) throw error;
+      setNotice("If confirmation is needed, a new link will arrive in your inbox.");
+    } catch (error) { setErrorMessage(authErrorMessage(error)); }
+    finally { setLoading(false); }
   };
 
   return (
@@ -139,14 +156,14 @@ function AuthPage() {
             className="w-full max-w-sm py-10"
           >
             <div className="text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
-              — {mode === "signin" ? "Welcome back" : "Create account"}
+              — {mode === "forgot" ? "Account recovery" : mode === "signin" ? "Welcome back" : "Create account"}
             </div>
             <h2 className="mt-2 font-display text-3xl">
-              {mode === "signin" ? "Sign " : "Join "}
+              {mode === "forgot" ? "Reset password · " : mode === "signin" ? "Sign in to " : "Join "}
               <span className="italic-serif">Tier2X</span>
             </h2>
 
-            <Button
+            {mode !== "forgot" && <Button
               variant="outline"
               type="button"
               onClick={google}
@@ -160,10 +177,10 @@ function AuthPage() {
                 <path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4-4 5.4l6.6 5.4c4.6-4.2 7.1-10.4 7.1-17.3 0-1.2-.1-2.3-.4-3.5z"/>
               </svg>
               Continue with Google
-            </Button>
+            </Button>}
 
             <div className="my-6 flex items-center gap-3 text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
-              <span className="h-px flex-1 bg-border" /> or {mode === "signin" ? "sign in" : "sign up"} with email <span className="h-px flex-1 bg-border" />
+              <span className="h-px flex-1 bg-border" /> {mode === "forgot" ? "Reset by email" : `or ${mode === "signin" ? "sign in" : "sign up"} with email`} <span className="h-px flex-1 bg-border" />
             </div>
 
             <form onSubmit={submit} className="space-y-3">
@@ -188,7 +205,7 @@ function AuthPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 className="input-ink"
               />
-              <input
+              {mode !== "forgot" && <input
                 required
                 type="password"
                 aria-label="Password"
@@ -198,21 +215,28 @@ function AuthPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="input-ink"
-              />
+              />}
               <Button
                 type="submit"
                 disabled={loading}
                 className="h-12 w-full rounded-full"
               >
                 {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <ArrowRight className="h-4 w-4" />}
-                {mode === "signin" ? "Sign in" : "Create account"}
+                {mode === "forgot" ? "Send reset link" : mode === "signin" ? "Sign in" : "Create account"}
               </Button>
             </form>
+            {errorMessage && <p role="alert" className="mt-4 text-sm text-destructive">{errorMessage}</p>}
+            {notice && <p role="status" className="mt-4 text-sm text-muted-foreground">{notice}</p>}
+            {mode === "signin" && <div className="mt-4 flex flex-wrap justify-between gap-2">
+              <Button variant="link" disabled={loading} className="h-auto p-0 text-xs" onClick={() => { setMode("forgot"); setNotice(""); setErrorMessage(""); }}>Forgot password?</Button>
+              <Button variant="link" disabled={loading} className="h-auto p-0 text-xs" onClick={resendConfirmation}>Resend confirmation</Button>
+            </div>}
 
             <p className="mt-6 text-center text-xs text-muted-foreground">
-              {mode === "signin" ? "New to Tier2X?" : "Already a member?"}{" "}
+              {mode === "forgot" ? "Remember your password?" : mode === "signin" ? "New to Tier2X?" : "Already a member?"}{" "}
               <Button variant="link"
-                onClick={() => setMode(mode === "signin" ? "signup" : "signin")}
+                disabled={loading}
+                onClick={() => { setMode(mode === "signin" ? "signup" : "signin"); setNotice(""); setErrorMessage(""); }}
                 className="h-auto p-0 text-gold"
               >
                 {mode === "signin" ? "Create an account" : "Sign in"}
