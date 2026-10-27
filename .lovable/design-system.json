@@ -1,0 +1,700 @@
+{
+  "meta": {
+    "name": "Campus X Launchpad",
+    "package": "@ws-mfkzyzfi2o4usw2umcz0/1d9778e6-2419-43b2-abbb-54ef30157979",
+    "version": "1.0.0",
+    "framework": "react",
+    "css_framework": "tailwind",
+    "starter_template": "custom_design_system_tailwind",
+    "theme_files": [
+      "src/styles.css"
+    ],
+    "source_type": "local",
+    "source_manifest": {
+      "#enrichment": "33afadcd73973bc0eb95d5cd1fe871eca669cea64656e20a9929c592548b93b0",
+      ".gitignore": "6d9e901a692b46a83707c245fb03bc91",
+      ".lovable/mcp/manifest.json": "ee106657688688b3abae261db8b24dca",
+      ".lovable/project.json": "28d9f425378ffed77c00c323e605a60a",
+      ".prettierignore": "7279a476f196a2da5f7edd18db568dc6",
+      ".prettierrc": "185ef0234746ab738ac1ab6cec5e2bd9",
+      "AGENTS.md": "8864165ce0976568d3088d18ca798b89",
+      "bunfig.toml": "9957b71c4a8343271dc6c103da6c42b8",
+      "components.json": "30d3d035361ce807021f5c54620962e9",
+      "eslint.config.js": "345bdd57e188e0e4525edcd00e5003f5",
+      "package.json": "13e94b60461dbb222e700f01ad7d1fff",
+      "public/favicon.svg": "00196e2651202b4bd2c14d9cee4b2e9a",
+      "public/robots.txt": "b02b6cf128cb559063b2bd5d8794cbe4",
+      "roadmap.md": "a763080ca1df38673b00ca715877177d",
+      "src/assets/student-builders.jpg": "a8f4380afd88c8015cfb56f268f30a66",
+      "src/components/admin/agent-team-panel.tsx": "d49d5d2bc706eb8b47eddf8e078998fb",
+      "src/components/admin/block-editor.tsx": "5a08825190552d2ebf529c5ae0e74480",
+      "src/components/admin/blog-studio-wizard.tsx": "015e47d5f00252122bc4a3f88ed7b0ac",
+      "src/components/ai-fix-button.tsx": "01728cf8d8ee737814e580fa7c40755c",
+      "src/components/ai-helper-fab.tsx": "58b07b853ce3a646249432aed9be9f6e",
+      "src/components/aios/aios-sections.tsx": "bf7af9bbd1ba19b89214f8e32d25215e",
+      "src/components/aios/discount-badge.tsx": "c1a913d72ab9744e5e1665762a893f84",
+      "src/components/aios/team-console.tsx": "97b2d9bcb7b0830416a6c8095b80a136",
+      "src/components/aios/team-detail-sheet.tsx": "ea8bdb2cf154ed9187cc3e92a5474f03",
+      "src/components/aios/team-purchase-dialog.tsx": "35583e6c30eb76c614957c5745007c31",
+      "src/components/aios/upi-pay-buttons.tsx": "29f8025144103b17bbabf6c54f256a62",
+      "src/components/app-layout.tsx": "ea100ff904663ae53ceabf380bb38dac",
+      "src/components/blog/block-renderer.tsx": "b78474b9379a07a3295c793542969131",
+      "src/components/feature-carousel.tsx": "525b9d30a43731ce0b091a8e22f84491",
+      "src/components/feature-shell.tsx": "759789847f5e77f91a3cf8f32a0319e7",
+      "src/components/featured-blogs.tsx": "f1b1389cfa78a538577ab8e957351bd8",
+      "src/components/how-it-works-live.tsx": "b113ff98eb16218d67472d8cb4cd48c7",
+      "src/components/how-it-works.tsx": "70ce0b46f553e6b28335ed3e1fcecf60",
+      "src/components/landing-visuals.tsx": "978a4d0c6f24b13bc9054744f676d261",
+      "src/components/marketing-layout.tsx": "9b9f8cb8e04c50015dbb06b4167d5505",
+      "src/components/opportunity-detail-sheet.tsx": "2c936a7140c32f1355f4f0a191cac847",
+      "src/components/opportunity-freshness.tsx": "069c47153f33e6e77102583f11f60074",
+      "src/components/opportunity-network.tsx": "813b1140d7483ed72f7bfb1419c83164",
+      "src/components/testimonials-showcase.tsx": "6fcd0b9d396d39fa84c87ad7f1dc0240",
+      "src/components/ui/accordion.tsx": "55f9dda62b4e3913c9b23e5015a86aef",
+      "src/components/ui/alert-dialog.tsx": "96350e949e9b7b674545430a410ab89c",
+      "src/components/ui/alert.tsx": "f993d7e96b1e25ce50e68ed97e11d2a8",
+      "src/components/ui/aspect-ratio.tsx": "c5c364545e1b25a94e9e752cd67ad048",
+      "src/components/ui/avatar.tsx": "72989cd32f72c4122802540ef32525a5",
+      "src/components/ui/badge.tsx": "81cade001fc4260f9943e18dcd79449b",
+      "src/components/ui/breadcrumb.tsx": "bb9ac254f12662b20d5d50b84308bf3a",
+      "src/components/ui/button.tsx": "165450b44a41486fb0d04053c1938750",
+      "src/components/ui/calendar.tsx": "415d91d7006d4cc654e27620fca340f6",
+      "src/components/ui/card.tsx": "d6c48ea36221b9cdc3576d305d12d5d5",
+      "src/components/ui/carousel.tsx": "e324c68ae00cd5aed49317638abd429a",
+      "src/components/ui/chart.tsx": "6a3baf94f2e89f1f97d4d7a28f3622d2",
+      "src/components/ui/checkbox.tsx": "f78aac270ca482c8c2cb907ef6260462",
+      "src/components/ui/collapsible.tsx": "767631bbc344945c236f185f4078d71d",
+      "src/components/ui/command.tsx": "014782599cc838b021ec68b07ad4ea02",
+      "src/components/ui/context-menu.tsx": "e9d689beb53d9adb63165bfe64838bf6",
+      "src/components/ui/dialog.tsx": "ef4fe8e7de8675730afe3d633b260e09",
+      "src/components/ui/drawer.tsx": "8be333e8fd8e42576b1b5f72f07f4337",
+      "src/components/ui/dropdown-menu.tsx": "32156e221f3473280114c80fdb818829",
+      "src/components/ui/form.tsx": "1b0aa6302b9017ea2a1307c22a1d2983",
+      "src/components/ui/hover-card.tsx": "1442794c5ca2a78d69e4e613b315ed3d",
+      "src/components/ui/input-otp.tsx": "58cff10c8942cac8483c0bcd65d39d3c",
+      "src/components/ui/input.tsx": "1d4cc52a4cd8afb3e18e45bda942bb8a",
+      "src/components/ui/label.tsx": "7e35df4ca8edd0835efd97ca7937ef92",
+      "src/components/ui/menubar.tsx": "5870465653e12c3d0e35a2fad6f9faa9",
+      "src/components/ui/navigation-menu.tsx": "e85351147a02b29577ff83d188b63c24",
+      "src/components/ui/pagination.tsx": "fac6cdbb4bbf78b273d85cd36d6cbb49",
+      "src/components/ui/popover.tsx": "f18aa1da2144f25ee60795c539c51bcd",
+      "src/components/ui/progress.tsx": "55c462e5c9dd678dcf2c0c510b014ac4",
+      "src/components/ui/radio-group.tsx": "0e1ace237a5da3197e3eb1e6683faba9",
+      "src/components/ui/resizable.tsx": "d9fcb9203c749fcab4e125a99bb12a86",
+      "src/components/ui/scroll-area.tsx": "87b65d3eb26f2b02ff35a7acea585ba5",
+      "src/components/ui/select.tsx": "31ea1bbd6671833b010b2e852c8a55d0",
+      "src/components/ui/separator.tsx": "433d163c4ffa00b59398a0c293198b5e",
+      "src/components/ui/sheet.tsx": "0221fbf97b69611b47fcbc10bb27669a",
+      "src/components/ui/sidebar.tsx": "83c1623eb50ebc370d7b1b84a542e369",
+      "src/components/ui/skeleton.tsx": "41b182e6e2fc3805960d41e767d4a972",
+      "src/components/ui/slider.tsx": "4752f1bfa26426988d325599e01c335b",
+      "src/components/ui/sonner.tsx": "97f59f60be3413196d095fcbf7383216",
+      "src/components/ui/switch.tsx": "82f5d8b0c59bb7ff305caa9f502e79ff",
+      "src/components/ui/table.tsx": "7cc889989d53894b659903c73aded96e",
+      "src/components/ui/tabs.tsx": "56e725558c2ce72c18243bf51717f385",
+      "src/components/ui/textarea.tsx": "c7aad96fb9545210d53135a96c76ed6b",
+      "src/components/ui/toggle-group.tsx": "ac26383acf721d116ca8e3ab5c5355d5",
+      "src/components/ui/toggle.tsx": "ee8c5adac74e7242b85b544db1a8fbad",
+      "src/components/ui/tooltip.tsx": "67d71db5a1ab935695d1def497f5b8a6",
+      "src/hooks/use-auth.tsx": "f9dffa26ae55a22c508118a11ecb2403",
+      "src/hooks/use-mobile.tsx": "c0a0bdd4638c391a1dd06ac82074e60b",
+      "src/integrations/lovable/index.ts": "2b281422ef62231e654f8668addb90a5",
+      "src/integrations/supabase/auth-attacher.ts": "dad043cda134d909e52de0346c16625e",
+      "src/integrations/supabase/auth-middleware.ts": "cd3d931e149752681dfbf58f6046488c",
+      "src/integrations/supabase/client.server.ts": "291dd248c905ba0f0eefbcb5db2d6fc2",
+      "src/integrations/supabase/client.ts": "10c4577b5c2d58dae13b65358e47cbdc",
+      "src/integrations/supabase/previewAuthStorage.ts": "315e4ae3473d92766e0d6d4d83945aef",
+      "src/integrations/supabase/types.ts": "46dfc2b1a71bff2fadfc7e7b7d2c3369",
+      "src/lib/admin-agent-team.functions.ts": "5f0ad95a437020bac074c95b867e9000",
+      "src/lib/admin.functions.ts": "436664d7a8fc4828c672b6a41c6f3855",
+      "src/lib/agents.functions.ts": "0867c1fa88cafe82c8436264dda1157a",
+      "src/lib/ai-fix.functions.ts": "a660cae019af52fc45286c612e7cf17e",
+      "src/lib/ai-gateway.server.ts": "1f47c65f211bf9a7bc77d55c5629e14d",
+      "src/lib/ai-teams.functions.ts": "999f867a874c4001f2cdd95c77bc3597",
+      "src/lib/ai.functions.ts": "6a7a20365116f9d34994e62085fbc3d9",
+      "src/lib/aios-teams.ts": "b57fc5ea6b752ffa0fa0a86ca2ff928a",
+      "src/lib/auth-flow.test.ts": "8927c8fe4211a76b376a1c1d7403b0f6",
+      "src/lib/auth-flow.ts": "7d0cbf629c92e4d3c8a994ccd6a2bc25",
+      "src/lib/blog-blocks.ts": "6f50d410479e91fdaf972bc6d3d39fba",
+      "src/lib/blog-render.ts": "c0ca78a6a3bb579290176ff306b138a8",
+      "src/lib/blog-studio.functions.ts": "2ac9cd90568f11dfc2ac223ab3208577",
+      "src/lib/blog.functions.ts": "0e4236e5d83c288bcb3b05f463289893",
+      "src/lib/dev-profile.functions.ts": "d185c59d8957cf2ff7a7f011b33f5337",
+      "src/lib/error-capture.ts": "00e77bfacfb2d79c0816361e678f1b65",
+      "src/lib/error-page.ts": "8da0ddd7569bac2676b9a5c8edff8a36",
+      "src/lib/linkedin-optimizer.functions.ts": "1876974035b1b70cd67ce71dfcac1010",
+      "src/lib/lovable-error-reporting.ts": "0e6014b8724d59792cd855f3d014c2fe",
+      "src/lib/mcp/index.ts": "ad8a225bb9e4555f774549d07d685644",
+      "src/lib/mcp/supabase-for-user.ts": "419bae5aaec288ad29965b238f082d7f",
+      "src/lib/mcp/tools/create-project.ts": "1c61af1c3ce1300f72f9b97dbd167af2",
+      "src/lib/mcp/tools/get-resume.ts": "e963ebbb6de2fab2ce865707e80e5bbc",
+      "src/lib/mcp/tools/list-internships.ts": "936c7bc50bd758fb3a42729472e73426",
+      "src/lib/mcp/tools/list-projects.ts": "d946d4e83c3f8a21f802996f72bbf702",
+      "src/lib/mcp/tools/whoami.ts": "482de04f25acc680b741b4e9c13cb511",
+      "src/lib/opportunities.functions.ts": "e4ea478223e0f00a094fbb74defe6ade",
+      "src/lib/opportunity-enrich.server.ts": "4d294dfc8054c903d9337a65513afd8f",
+      "src/lib/opportunity.ts": "f0a03611e0ff42ef59e225bfd828e78e",
+      "src/lib/roadmap-maker.functions.ts": "d3a9701dd1e91c64092106f057692421",
+      "src/lib/upi.ts": "2ca01812fe8a1d5ee3f7f69a93016b37",
+      "src/lib/utils.ts": "d9837f38cc05303254571985e3164050",
+      "src/routeTree.gen.ts": "1ae49f870068b6498a9df42fa842670d",
+      "src/router.tsx": "8f905e713b0eba7fa8148b7995a708c9",
+      "src/routes/README.md": "b3a2f259b66fd1a11f54b6d5ac83bf57",
+      "src/routes/[.]lovable.oauth.consent.tsx": "cc456cfb971ea4dd8903f983bd9d91c6",
+      "src/routes/[.mcp]/invoke-tool/$tool.ts": "2cc296128352d61d70726e7428ef5ca5",
+      "src/routes/[.mcp]/list-tools.ts": "bc1d258eb3237605d066b9a536a63d5d",
+      "src/routes/[.well-known]/oauth-protected-resource.ts": "2dbcc907a7d3ab43955e6dbbb99e7a1d",
+      "src/routes/__root.tsx": "f6db5d214efe9bc5c25d14914e8da7ec",
+      "src/routes/_authenticated/agents.tsx": "00266cde5986ef757fde732203143a22",
+      "src/routes/_authenticated/alumni.tsx": "25f3589cc633c614d3db14dae291cc13",
+      "src/routes/_authenticated/applications.tsx": "19826b9ef25acd22e01f288342d4bd99",
+      "src/routes/_authenticated/dashboard.tsx": "4406a5b8877918b6e49962e502a28ccc",
+      "src/routes/_authenticated/devprofile.tsx": "d0e0075931e479ddeba49977ce77fa03",
+      "src/routes/_authenticated/discover.tsx": "0932b9d20787741c085b281ae47ca467",
+      "src/routes/_authenticated/hackathons.tsx": "161d9a3c9db9d31247338e11c06998a8",
+      "src/routes/_authenticated/internships.tsx": "73b5d02e9d8886175d9caa7cc397163d",
+      "src/routes/_authenticated/jobs.tsx": "abb72283f144fed494739c5ec9b85d0a",
+      "src/routes/_authenticated/linkedin-optimizer.tsx": "2ecaa8ba2768105432e249c8f8042cd7",
+      "src/routes/_authenticated/mentor.tsx": "b8b5b399ec06c943442eb65eb9a30cb6",
+      "src/routes/_authenticated/prep.tsx": "6c6e3cca835f816611d35f48ba3ffb4d",
+      "src/routes/_authenticated/prep_.$track.tsx": "8a06ba5c037355bb8f31c0acdc00d84e",
+      "src/routes/_authenticated/prep_.$track_.$node.tsx": "a3fe0ab19623d40185a1213131499850",
+      "src/routes/_authenticated/profile.tsx": "09b01bd0cb22d535a352d4577068ba7d",
+      "src/routes/_authenticated/projects.tsx": "b1f23beda63742dc04d46fab72421172",
+      "src/routes/_authenticated/resume.tsx": "8b6d134fccad66358cdb0d53f4380bf0",
+      "src/routes/_authenticated/roadmap-maker.tsx": "937e861d925aeaf968a54dddc323b86a",
+      "src/routes/_authenticated/rooms.$slug.tsx": "e63bc68619060f5855042764e7d8aeff",
+      "src/routes/_authenticated/rooms.index.tsx": "f449f624efdfcfcc6ace1e07b7b63116",
+      "src/routes/_authenticated/route.tsx": "4c2bf9e95afa794a9f95091d8416d88d",
+      "src/routes/_authenticated/startups.tsx": "1edbb1ccb6f35276ebe583877e2da7c1",
+      "src/routes/about.tsx": "cb0ec2575640ec52a3095655db4047e9",
+      "src/routes/admin.suman.tsx": "0f95129a0c926a3a337d54c96073e7e8",
+      "src/routes/ai-company.tsx": "5201436fba7c32e084d8ada49f280290",
+      "src/routes/api/admin/agent-chat.ts": "26c9bde289dc78f4b8df681aeb794338",
+      "src/routes/api/admin/agent-team-chat.ts": "7afa89198bd7f85afd653455873642ea",
+      "src/routes/api/public/hooks/agent-dispatch.ts": "2984c57180859b50f452c57c3538ec94",
+      "src/routes/api/public/hooks/refresh-opportunities.ts": "01bd2b8bb98203f8d6de205474d8344c",
+      "src/routes/auth.tsx": "e845efe1f9ccafaf07fdf34df4ea2772",
+      "src/routes/blog.$slug.tsx": "9d23572676cd9af6e8b6b91998fd4a05",
+      "src/routes/blog.index.tsx": "4511739ac786089c4feed1f2d47115ca",
+      "src/routes/colleges.tsx": "5c7be7c6353736468078565cde6a9eeb",
+      "src/routes/disclaimer.tsx": "b8bb4020f64a3353fa4ae105baadebc1",
+      "src/routes/features.tsx": "e41a97255dfa31cb0947c746e065fe6e",
+      "src/routes/for-alumni.tsx": "f1c1dba5e324b79644ad3aa73b1294f7",
+      "src/routes/how-it-works.tsx": "2c39486f77e420334decfbcef678f864",
+      "src/routes/index.tsx": "521131f1ee33bd36a74b531a07761157",
+      "src/routes/mcp.ts": "300ada44271329e833b338d197b2395b",
+      "src/routes/pricing.tsx": "698a861a0d0d96965ee6c33843244c9b",
+      "src/routes/privacy.tsx": "805f4aa1b3fa6063b6c067b070714244",
+      "src/routes/reset-password.tsx": "654b26a9b5e079bb03c96d93c9d8c3d2",
+      "src/routes/sitemap[.]xml.ts": "aac0898837d0d78dac926a1e118f1fbd",
+      "src/routes/terms.tsx": "0bbf2bf1a008cebfc19c7d04455e88a0",
+      "src/routes/u.$handle.tsx": "33b720858656d35e37463cddf7f2cae8",
+      "src/server.ts": "fbc6ebe75c2c10edbbe88119737e2f68",
+      "src/start.ts": "58428f7e8f0124a31a98016fcd56ab3b",
+      "src/styles.css": "47c752d76bde6d00b33e60a4068b4058",
+      "supabase/config.toml": "92a8409747a0c0087153749dc9ad9a36",
+      "supabase/migrations/20260626085416_722f53f4-14a1-49f0-8336-d1c5d90bccc9.sql": "e5e739e5bdbfc3dd4debe751d255bfa3",
+      "supabase/migrations/20260626085432_bfaaf1ba-aad3-447e-bea3-f4cf88588e33.sql": "b67eb6b0acadea0b70bc91e97d1ae5c8",
+      "supabase/migrations/20260704012555_f21d5e2c-7122-422b-9ba5-a865f0483a16.sql": "3def298db40805608055315dce510d9a",
+      "supabase/migrations/20260704012616_63fc6c57-8254-4971-aa8f-f2896a5a1f48.sql": "bbcda91199e56044ddd754f45a4c5e40",
+      "supabase/migrations/20260704013752_c2e27676-ae17-4fb5-8d53-1625851e2230.sql": "9ad7f4779f12c63203463cc1eb05145c",
+      "supabase/migrations/20260704015126_be9251b9-0d8d-486c-99ac-387e1632fa8d.sql": "9847d65ee190dc4dc9fd7d0c0e0ec66d",
+      "supabase/migrations/20260704021045_27f9cb68-1586-4c07-8bb5-5bfcf6ade3f8.sql": "03eaab2fe8eac2bee8cf3700a68c88e3",
+      "supabase/migrations/20260705153844_6eaa484c-8e70-4dd7-ae2f-71baa00a27c7.sql": "a41eb624c152d35d408a8117b2688713",
+      "supabase/migrations/20260705160459_34b8c957-1eb0-475c-841d-4969af44fc71.sql": "be4602a9bc986414235bae7a68f66420",
+      "supabase/migrations/20260705160538_41670953-c1e7-42c9-b356-a930e25a0bc0.sql": "3fe0f59077c16c7e5e1a70e5bccf3572",
+      "supabase/migrations/20260705161641_50de956a-f401-4e25-be4c-ea4dffa9eb06.sql": "f701bc0638e10266e5ca89b84fb8c380",
+      "supabase/migrations/20260708125634_91c76d7d-de85-41e7-8062-3c607d6e56cd.sql": "d5fe48ac31e934f143c377d3d9144b16",
+      "supabase/migrations/20260719090527_ad688282-0bb4-4ab0-8f96-34cd64befa28.sql": "14686ea9aa6666decc62e8281b97541b",
+      "supabase/migrations/20260719092230_9aa6b24b-6f28-47d2-b9c9-5f239d366588.sql": "b3be184be841f98e44a0703566f7cecc",
+      "supabase/migrations/20260806043705_02fe0b19-73fa-47dd-a9c3-1b28301c874d.sql": "b6926eba9fdaaa78cb93c124443a29f7",
+      "supabase/migrations/20260806051324_3c4acd44-e79f-40dd-8ad8-3bff3fc6b0df.sql": "06d4ebd067eb33711af63169fe19c04a",
+      "supabase/migrations/20260806141607_7caa34a4-e5cb-48ea-bc5e-2fbbacc27409.sql": "e7a4b38326402432be1f86eb7df03110",
+      "supabase/migrations/20260808103647_6ecdad9f-38c9-4377-9814-7720ba3db10d.sql": "3ca2637b1794a3d0ea68225b0895d338",
+      "supabase/migrations/20260813132230_033b1ce6-b7d2-45d0-ac00-c8d383bfe442.sql": "59b724afe8b580a5ee419b862aa5acc9",
+      "supabase/migrations/20260903031924_c1e12031-88ac-4ec5-8617-43cd56981506.sql": "c46bec75c179dc6c9b82d3db59a50027",
+      "tsconfig.json": "994abf64c2b9f78b568879f80ed0170e",
+      "vite.config.ts": "337cb40643ba3abc2f71a4b19d955283"
+    },
+    "pipeline_version": 8
+  },
+  "tokens": {
+    "color": [
+      {
+        "name": "--background",
+        "raw": "oklch(0.99 0 0)",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--foreground",
+        "raw": "oklch(0.22 0.005 280)",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--surface",
+        "raw": "oklch(0.96 0.004 150)",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--surface-2",
+        "raw": "oklch(0.93 0.005 150)",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--card",
+        "raw": "oklch(1 0 0)",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--primary-foreground",
+        "raw": "oklch(0.99 0 0)",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--secondary",
+        "raw": "oklch(0.94 0.004 150)",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--muted",
+        "raw": "oklch(0.95 0 0)",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--muted-foreground",
+        "raw": "oklch(0.49 0.005 280)",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--accent",
+        "raw": "oklch(0.94 0.02 150)",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--gold",
+        "raw": "oklch(0.43 0.08 155)",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--gold-muted",
+        "raw": "oklch(0.49 0.06 155)",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--destructive",
+        "raw": "oklch(0.53 0.19 25)",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--destructive-foreground",
+        "raw": "oklch(0.99 0 0)",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--border",
+        "raw": "oklch(0.22 0.005 280 / 14%)",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--ring",
+        "raw": "oklch(0.53 0.08 155)",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--overlay",
+        "raw": "oklch(0.22 0.005 280 / 55%)",
+        "source": "src/styles.css"
+      }
+    ],
+    "typography": [
+      {
+        "name": "--font-display",
+        "raw": "\"Manrope\", ui-sans-serif, system-ui, sans-serif",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--font-sans",
+        "raw": "\"Manrope\", ui-sans-serif, system-ui, sans-serif",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--font-mono",
+        "raw": "\"JetBrains Mono\", ui-monospace, monospace",
+        "source": "src/styles.css"
+      }
+    ],
+    "radius": [
+      {
+        "name": "--radius-sm",
+        "raw": "calc(var(--radius) - 4px)",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--radius-md",
+        "raw": "calc(var(--radius) - 2px)",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--radius-xl",
+        "raw": "calc(var(--radius) + 4px)",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--radius-2xl",
+        "raw": "calc(var(--radius) + 8px)",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--radius-3xl",
+        "raw": "calc(var(--radius) + 12px)",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--radius",
+        "raw": "0.5rem",
+        "source": "src/styles.css"
+      }
+    ],
+    "shadow": [
+      {
+        "name": "--shadow-soft",
+        "raw": "0 4px 18px oklch(0.22 0.005 280 / 5%)",
+        "source": "src/styles.css"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "AgentTeamPanel",
+      "file": "src/components/admin/agent-team-panel",
+      "import_path": ""
+    },
+    {
+      "name": "TypographyPanel",
+      "file": "src/components/admin/block-editor",
+      "import_path": ""
+    },
+    {
+      "name": "BlockEditor",
+      "file": "src/components/admin/block-editor",
+      "import_path": ""
+    },
+    {
+      "name": "BlogStudioWizard",
+      "file": "src/components/admin/blog-studio-wizard",
+      "import_path": "",
+      "props": [
+        {
+          "name": "token",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "onClose",
+          "type": "function",
+          "required": true
+        },
+        {
+          "name": "onDone",
+          "type": "function",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "AiFixButton",
+      "file": "src/components/ai-fix-button",
+      "import_path": "",
+      "props": [
+        {
+          "name": "value",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "onChange",
+          "type": "function",
+          "required": true
+        },
+        {
+          "name": "context",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "className",
+          "type": "string"
+        },
+        {
+          "name": "label",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "AiHelperFab",
+      "file": "src/components/ai-helper-fab",
+      "import_path": ""
+    },
+    {
+      "name": "AiosHero",
+      "file": "src/components/aios/aios-sections",
+      "import_path": ""
+    },
+    {
+      "name": "AiosJourney",
+      "file": "src/components/aios/aios-sections",
+      "import_path": ""
+    },
+    {
+      "name": "AiosWorkflow",
+      "file": "src/components/aios/aios-sections",
+      "import_path": ""
+    },
+    {
+      "name": "AiosTeamsPricing",
+      "file": "src/components/aios/aios-sections",
+      "import_path": ""
+    },
+    {
+      "name": "AiosFaq",
+      "file": "src/components/aios/aios-sections",
+      "import_path": ""
+    },
+    {
+      "name": "AiosTeaser",
+      "file": "src/components/aios/aios-sections",
+      "import_path": ""
+    },
+    {
+      "name": "DiscountBadge",
+      "file": "src/components/aios/discount-badge",
+      "import_path": ""
+    },
+    {
+      "name": "DiscountRibbon",
+      "file": "src/components/aios/discount-badge",
+      "import_path": ""
+    },
+    {
+      "name": "StrikethroughPrice",
+      "file": "src/components/aios/discount-badge",
+      "import_path": ""
+    },
+    {
+      "name": "TeamConsole",
+      "file": "src/components/aios/team-console",
+      "import_path": ""
+    },
+    {
+      "name": "TeamDetailSheet",
+      "file": "src/components/aios/team-detail-sheet",
+      "import_path": ""
+    },
+    {
+      "name": "TeamPurchaseDialog",
+      "file": "src/components/aios/team-purchase-dialog",
+      "import_path": ""
+    },
+    {
+      "name": "UpiPayButtons",
+      "file": "src/components/aios/upi-pay-buttons",
+      "import_path": ""
+    },
+    {
+      "name": "AppLayout",
+      "file": "src/components/app-layout",
+      "import_path": ""
+    },
+    {
+      "name": "BlockView",
+      "file": "src/components/blog/block-renderer",
+      "import_path": ""
+    },
+    {
+      "name": "NewsletterBlock",
+      "file": "src/components/blog/block-renderer",
+      "import_path": ""
+    },
+    {
+      "name": "BlocksRenderer",
+      "file": "src/components/blog/block-renderer",
+      "import_path": ""
+    },
+    {
+      "name": "FeatureCarousel",
+      "file": "src/components/feature-carousel",
+      "import_path": ""
+    },
+    {
+      "name": "FeatureShell",
+      "file": "src/components/feature-shell",
+      "import_path": "",
+      "props": [
+        {
+          "name": "eyebrow",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "italic",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "body",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "icon",
+          "type": "any",
+          "required": true
+        },
+        {
+          "name": "highlights",
+          "type": "object",
+          "required": true
+        },
+        {
+          "name": "children",
+          "type": "any"
+        }
+      ]
+    },
+    {
+      "name": "FeaturedBlogsSection",
+      "file": "src/components/featured-blogs",
+      "import_path": ""
+    },
+    {
+      "name": "RadarScope",
+      "file": "src/components/how-it-works-live",
+      "import_path": ""
+    },
+    {
+      "name": "LiveCounters",
+      "file": "src/components/how-it-works-live",
+      "import_path": ""
+    },
+    {
+      "name": "LiveFeed",
+      "file": "src/components/how-it-works-live",
+      "import_path": ""
+    },
+    {
+      "name": "CompanyMarquee",
+      "file": "src/components/how-it-works-live",
+      "import_path": ""
+    },
+    {
+      "name": "HowItWorks",
+      "file": "src/components/how-it-works",
+      "import_path": ""
+    },
+    {
+      "name": "HeroOrbit",
+      "file": "src/components/landing-visuals",
+      "import_path": ""
+    },
+    {
+      "name": "TechMarquee",
+      "file": "src/components/landing-visuals",
+      "import_path": ""
+    },
+    {
+      "name": "LiveStats",
+      "file": "src/components/landing-visuals",
+      "import_path": ""
+    },
+    {
+      "name": "LiveTicker",
+      "file": "src/components/landing-visuals",
+      "import_path": ""
+    },
+    {
+      "name": "MarketingLayout",
+      "file": "src/components/marketing-layout",
+      "import_path": ""
+    },
+    {
+      "name": "OpportunityDetailSheet",
+      "file": "src/components/opportunity-detail-sheet",
+      "import_path": ""
+    },
+    {
+      "name": "OpportunityFreshness",
+      "file": "src/components/opportunity-freshness",
+      "import_path": ""
+    },
+    {
+      "name": "OpportunityNetworkSection",
+      "file": "src/components/opportunity-network",
+      "import_path": ""
+    },
+    {
+      "name": "TestimonialsShowcase",
+      "file": "src/components/testimonials-showcase",
+      "import_path": ""
+    },
+    {
+      "name": "Button",
+      "file": "src/components/ui/button",
+      "import_path": "",
+      "props": [
+        {
+          "name": "variant",
+          "type": "enum",
+          "values": [
+            "default",
+            "destructive",
+            "outline",
+            "secondary",
+            "ghost",
+            "link"
+          ],
+          "default": "default"
+        },
+        {
+          "name": "size",
+          "type": "enum",
+          "values": [
+            "default",
+            "sm",
+            "lg",
+            "icon"
+          ],
+          "default": "default"
+        },
+        {
+          "name": "asChild",
+          "type": "boolean",
+          "default": "false"
+        }
+      ]
+    },
+    {
+      "name": "AuthProvider",
+      "file": "src/hooks/use-auth",
+      "import_path": ""
+    },
+    {
+      "name": "Constants",
+      "file": "src/integrations/supabase/types",
+      "import_path": ""
+    }
+  ],
+  "assets": [
+    {
+      "file": "src/assets/student-builders.jpg",
+      "kind": "image",
+      "format": "jpg"
+    }
+  ]
+}
