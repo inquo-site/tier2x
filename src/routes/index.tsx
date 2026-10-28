@@ -80,7 +80,7 @@ function Landing() {
               <div className="flex items-center justify-between"><span className="font-mono text-xs text-muted-foreground">{number}</span><Icon className="h-6 w-6 text-foreground" strokeWidth={1.5} /></div>
               <h3 className="mt-10 text-2xl font-medium">{title}</h3><p className="mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground">{body}</p>
               <Button asChild variant="link" className="mt-7 h-auto justify-start p-0 text-sm text-foreground"><Link to={to}>{label} <ArrowUpRight /></Link></Button>
-            </article>)}
+            </motion.article>)}
           </div>
         </div>
       </section>
