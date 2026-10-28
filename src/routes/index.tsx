@@ -3,6 +3,7 @@ import { ArrowUpRight, ArrowRight, Users, FolderGit2, Briefcase, Rocket, Check }
 import { MarketingLayout } from "@/components/marketing-layout";
 import { Button } from "@/components/ui/button";
 import { FeaturedBlogsSection } from "@/components/featured-blogs";
+import { motion } from "motion/react";
 import studentBuilders from "@/assets/student-builders.jpg";
 
 export const Route = createFileRoute("/")({
@@ -53,17 +54,17 @@ function Landing() {
       <section className="minimal-hero">
         <div className="mx-auto max-w-6xl px-6 py-12 md:px-10 md:py-16">
           <p className="mb-6 text-xs font-medium uppercase tracking-widest text-muted-foreground">India’s student builder workspace</p>
-          <h1 className="minimal-headline">Tier2X.<br />Beyond your campus.<br /><span className="text-gold">Closer to what’s next.</span></h1>
+          <motion.h1 initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }} className="minimal-headline">Tier2X.<br />Beyond your campus.<br /><span className="text-gold">Closer to what’s next.</span></motion.h1>
           <div className="mt-10 grid items-start gap-10 md:grid-cols-[0.9fr_1.3fr] md:gap-16">
             <div className="pb-2 md:pt-3">
               <p className="max-w-md text-base leading-relaxed text-muted-foreground md:text-lg">Off-campus opportunities, alumni introductions, and a place to show your work — for students at India’s Tier-2 and Tier-3 colleges.</p>
               <Button asChild variant="outline" className="mt-8 h-12 rounded-full border-border bg-transparent px-6 text-foreground hover:bg-secondary hover:text-secondary-foreground"><Link to="/dashboard">Get early access <ArrowUpRight /></Link></Button>
               <p className="mt-8 flex items-center gap-2 text-xs text-muted-foreground"><Check className="h-4 w-4 text-gold" /> By a student. For student builders.</p>
             </div>
-            <figure className="relative m-0">
+            <motion.figure initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 1, 0.36, 1] }} whileHover={{ y: -6 }} className="relative m-0">
               <img src={studentBuilders} alt="Indian student builders collaborating on a laptop project" width={1536} height={1024} className="aspect-[16/9] w-full rounded-lg object-cover" />
               <figcaption className="mt-3 flex items-center justify-between gap-4 text-xs text-muted-foreground"><span>Build something that opens doors.</span><span className="text-gold">Opportunity starts here ↗</span></figcaption>
-            </figure>
+            </motion.figure>
           </div>
         </div>
       </section>
@@ -75,7 +76,7 @@ function Landing() {
             <div className="md:pt-2"><p className="text-base leading-relaxed text-muted-foreground md:text-lg">Great work can come from any campus. Tier2X brings opportunities, people, and proof-of-work into one place — so you can focus on moving forward.</p><Button asChild variant="link" className="mt-5 h-auto p-0 text-foreground"><Link to="/how-it-works">See how it works <ArrowRight /></Link></Button></div>
           </div>
           <div className="mt-16 grid md:grid-cols-3">
-            {paths.map(({ number, icon: Icon, title, body, to, label }) => <article key={number} className="minimal-path">
+            {paths.map(({ number, icon: Icon, title, body, to, label }, i) => <motion.article key={number} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.6, delay: i * 0.1 }} className="minimal-path">
               <div className="flex items-center justify-between"><span className="font-mono text-xs text-muted-foreground">{number}</span><Icon className="h-6 w-6 text-foreground" strokeWidth={1.5} /></div>
               <h3 className="mt-10 text-2xl font-medium">{title}</h3><p className="mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground">{body}</p>
               <Button asChild variant="link" className="mt-7 h-auto justify-start p-0 text-sm text-foreground"><Link to={to}>{label} <ArrowUpRight /></Link></Button>
