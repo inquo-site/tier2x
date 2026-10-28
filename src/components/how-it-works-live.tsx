@@ -107,7 +107,7 @@ export function RadarScope({ data }: { data?: RadarData }) {
         className="absolute inset-0 rounded-full"
         style={{
           background:
-            "conic-gradient(from 0deg, oklch(0.8 0.16 85 / 0.28) 0deg, transparent 55deg, transparent 360deg)",
+            "conic-gradient(from 0deg, oklch(0.8 0.12 235 / 0.3) 0deg, transparent 55deg, transparent 360deg)",
           maskImage: "radial-gradient(circle, black 65%, transparent 70%)",
           WebkitMaskImage: "radial-gradient(circle, black 65%, transparent 70%)",
         }}
@@ -137,7 +137,7 @@ export function RadarScope({ data }: { data?: RadarData }) {
             <motion.div
               animate={{ opacity: [0.45, 1, 0.45] }}
               transition={{ duration: 3, repeat: Infinity, delay: i * 0.35 }}
-              className="h-2 w-2 rounded-full bg-gold shadow-[0_0_12px_2px_oklch(0.8_0.16_85_/_0.5)]"
+              className="h-2 w-2 rounded-full bg-gold shadow-[0_0_12px_2px_oklch(0.75_0.13_235_/_0.5)]"
             />
             <div className="pointer-events-none absolute left-3 top-1/2 hidden -translate-y-1/2 whitespace-nowrap rounded-full border border-border bg-background/85 px-2 py-0.5 text-[10px] text-foreground/70 backdrop-blur md:block">
               {p.org}
