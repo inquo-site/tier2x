@@ -6,6 +6,7 @@ import { FeaturedBlogsSection } from "@/components/featured-blogs";
 import { motion } from "motion/react";
 import studentBuilders from "@/assets/student-builders.jpg";
 import { FeatureBento } from "@/components/feature-bento";
+import { KineticBeam, TiltCard } from "@/components/kinetic-scroll";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -52,6 +53,7 @@ const paths = [
 function Landing() {
   return (
     <MarketingLayout>
+      <KineticBeam />
       <section className="minimal-hero">
         <div className="mx-auto max-w-6xl px-6 py-12 md:px-10 md:py-16">
           <p className="mb-6 text-xs font-medium uppercase tracking-widest text-muted-foreground">India’s student builder workspace</p>
@@ -78,11 +80,11 @@ function Landing() {
             <div className="md:pt-2"><p className="text-base leading-relaxed text-muted-foreground md:text-lg">Great work can come from any campus. Tier2X brings opportunities, people, and proof-of-work into one place — so you can focus on moving forward.</p><Button asChild variant="link" className="mt-5 h-auto p-0 text-foreground"><Link to="/how-it-works">See how it works <ArrowRight /></Link></Button></div>
           </div>
           <div className="mt-16 grid md:grid-cols-3">
-            {paths.map(({ number, icon: Icon, title, body, to, label }, i) => <motion.article key={number} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.6, delay: i * 0.1 }} className="minimal-path">
+            {paths.map(({ number, icon: Icon, title, body, to, label }) => <TiltCard key={number}><article className="minimal-path h-full">
               <div className="flex items-center justify-between"><span className="font-mono text-xs text-muted-foreground">{number}</span><Icon className="h-6 w-6 text-foreground" strokeWidth={1.5} /></div>
               <h3 className="mt-10 text-2xl font-medium">{title}</h3><p className="mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground">{body}</p>
               <Button asChild variant="link" className="mt-7 h-auto justify-start p-0 text-sm text-foreground"><Link to={to}>{label} <ArrowUpRight /></Link></Button>
-            </motion.article>)}
+            </article></TiltCard>)}
           </div>
         </div>
       </section>
