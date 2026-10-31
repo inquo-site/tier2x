@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { FeaturedBlogsSection } from "@/components/featured-blogs";
 import { motion } from "motion/react";
 import studentBuilders from "@/assets/student-builders.jpg";
+import { FeatureBento } from "@/components/feature-bento";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -68,6 +69,7 @@ function Landing() {
           </div>
         </div>
       </section>
+      <FeatureBento />
 
       <section className="px-6 py-20 md:px-10 md:py-28">
         <div className="mx-auto max-w-6xl">
