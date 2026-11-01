@@ -3,6 +3,7 @@ import { createClient } from "@supabase/supabase-js";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import type { Database } from "@/integrations/supabase/types";
+import { importGitHub } from "./github-import.server";
 
 const HANDLE_RE = /^[a-z0-9][a-z0-9-]{1,38}$/;
 const URL_OR_EMPTY = z.string().trim().max(300).optional().nullable();
@@ -12,7 +13,7 @@ const SaveSchema = z.object({
   display_name: z.string().trim().max(80).optional().nullable(),
   headline: z.string().trim().max(140).optional().nullable(),
   bio: z.string().trim().max(1000).optional().nullable(),
-  github_username: z.string().trim().max(39).optional().nullable(),
+  github_username: z.string().trim().regex(/^[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,37}[a-zA-Z0-9])?$/, "Enter a GitHub username, not a URL").optional().nullable(),
   codeforces_handle: z.string().trim().max(24).optional().nullable(),
   leetcode_url: URL_OR_EMPTY,
   linkedin_url: URL_OR_EMPTY,
@@ -21,43 +22,21 @@ const SaveSchema = z.object({
 });
 
 function serverPublicClient() {
+  const url = process.env['SUPABASE_URL'];
+  const key = process.env['SUPABASE_PUBLISHABLE_KEY'];
+  if (!url || !key) throw new Error("Profile service is unavailable.");
   return createClient<Database>(
-    process.env.SUPABASE_URL!,
-    process.env.SUPABASE_PUBLISHABLE_KEY!,
-    { auth: { storage: undefined, persistSession: false, autoRefreshToken: false } },
+    url,
+    key,
+    { auth: { storage: undefined, persistSession: false, autoRefreshToken: false },
+      global: { fetch: (input, init) => {
+        const headers = new Headers(init?.headers);
+        if (key.startsWith("sb_") && headers.get("Authorization") === `Bearer ${key}`) headers.delete("Authorization");
+        headers.set("apikey", key);
+        return fetch(input, { ...init, headers });
+      } },
+    },
   );
-}
-
-async function fetchGitHub(username: string) {
-  const headers: Record<string, string> = { Accept: "application/vnd.github+json" };
-  const [uRes, rRes] = await Promise.all([
-    fetch(`https://api.github.com/users/${encodeURIComponent(username)}`, { headers }),
-    fetch(`https://api.github.com/users/${encodeURIComponent(username)}/repos?sort=updated&per_page=6`, { headers }),
-  ]);
-  if (!uRes.ok) throw new Error(`GitHub user "${username}" not found`);
-  const user = await uRes.json();
-  const repos = rRes.ok ? await rRes.json() : [];
-  return {
-    login: user.login,
-    name: user.name,
-    avatar_url: user.avatar_url,
-    bio: user.bio,
-    followers: user.followers,
-    following: user.following,
-    public_repos: user.public_repos,
-    html_url: user.html_url,
-    company: user.company,
-    location: user.location,
-    top_repos: (repos as any[]).slice(0, 6).map((r) => ({
-      name: r.name,
-      description: r.description,
-      html_url: r.html_url,
-      stars: r.stargazers_count,
-      forks: r.forks_count,
-      language: r.language,
-      updated_at: r.updated_at,
-    })),
-  };
 }
 
 async function fetchCodeforces(handle: string) {
@@ -92,11 +71,23 @@ export const saveDevProfile = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((data: unknown) => SaveSchema.parse(data))
   .handler(async ({ data, context }) => {
+    const { data: previous, error: previousError } = await context.supabase.from("dev_profiles").select("github_username, codeforces_handle").eq("user_id", context.userId).maybeSingle();
+    if (previousError) throw new Error(previousError.message);
+    const warnings: string[] = [];
+    let imported: Awaited<ReturnType<typeof importGitHub>> | undefined;
+    if (data.github_username && previous?.github_username !== data.github_username) {
+      try { imported = await importGitHub(data.github_username); warnings.push(...imported.warnings); }
+      catch (error) { warnings.push(error instanceof Error ? error.message : "GitHub import failed. Use Sync to retry."); }
+    }
     const { error } = await context.supabase
       .from("dev_profiles")
-      .upsert({ user_id: context.userId, ...data }, { onConflict: "user_id" });
+      .upsert({ user_id: context.userId, ...data,
+        ...(previous?.github_username !== data.github_username ? { github_data: null } : {}),
+        ...(previous?.codeforces_handle !== data.codeforces_handle ? { codeforces_data: null } : {}),
+        ...(imported ? { github_data: imported.data, synced_at: new Date().toISOString() } : {}),
+      }, { onConflict: "user_id" });
     if (error) throw new Error(error.message);
-    return { ok: true };
+    return { ok: true, warnings };
   });
 
 export const syncDevProfile = createServerFn({ method: "POST" })
@@ -104,22 +95,28 @@ export const syncDevProfile = createServerFn({ method: "POST" })
   .handler(async ({ context }) => {
     const { data: row, error } = await context.supabase
       .from("dev_profiles")
-      .select("github_username, codeforces_handle")
+      .select("github_username, codeforces_handle, github_data, codeforces_data")
       .eq("user_id", context.userId)
       .maybeSingle();
     if (error) throw new Error(error.message);
     if (!row) throw new Error("Create your report card first.");
 
     const errors: string[] = [];
-    let github_data: any = null;
-    let codeforces_data: any = null;
+    let github_data = row.github_data;
+    let codeforces_data = row.codeforces_data;
+    let succeeded = false;
 
     if (row.github_username) {
-      try { github_data = await fetchGitHub(row.github_username); }
+      try {
+        const imported = await importGitHub(row.github_username);
+        github_data = imported.data;
+        errors.push(...imported.warnings);
+        succeeded = true;
+      }
       catch (e: any) { errors.push(e.message); }
     }
     if (row.codeforces_handle) {
-      try { codeforces_data = await fetchCodeforces(row.codeforces_handle); }
+      try { codeforces_data = await fetchCodeforces(row.codeforces_handle); succeeded = true; }
       catch (e: any) { errors.push(e.message); }
     }
 
@@ -128,7 +125,7 @@ export const syncDevProfile = createServerFn({ method: "POST" })
       .update({
         github_data,
         codeforces_data,
-        synced_at: new Date().toISOString(),
+        ...(succeeded ? { synced_at: new Date().toISOString() } : {}),
       })
       .eq("user_id", context.userId);
     if (upErr) throw new Error(upErr.message);

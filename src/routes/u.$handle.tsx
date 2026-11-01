@@ -1,6 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { Github, Trophy, ExternalLink, MapPin, Star, GitFork, Linkedin, Globe, Code2 } from "lucide-react";
 import { getDevProfileByHandle } from "@/lib/dev-profile.functions";
+import { GitHubProjects } from "@/components/github-projects";
 import { MarketingLayout } from "@/components/marketing-layout";
 
 export const Route = createFileRoute("/u/$handle")({
@@ -14,6 +15,8 @@ export const Route = createFileRoute("/u/$handle")({
       ? [
           { title: `${loaderData.profile.display_name ?? loaderData.profile.handle} — Tier2X report card` },
           { name: "description", content: loaderData.profile.headline ?? loaderData.profile.bio ?? "Builder report card on Tier2X." },
+          { property: "og:type", content: "profile" },
+          { name: "twitter:card", content: "summary" },
           { property: "og:title", content: `${loaderData.profile.display_name ?? loaderData.profile.handle} on Tier2X` },
           { property: "og:description", content: loaderData.profile.headline ?? "Builder report card on Tier2X." },
         ]
@@ -93,20 +96,7 @@ function PublicCard() {
                   <Stat label="Followers" value={gh.followers ?? 0} />
                   <Stat label="Following" value={gh.following ?? 0} />
                 </div>
-                <div className="mt-4 space-y-2">
-                  {gh.top_repos?.map((r: any) => (
-                    <a key={r.name} href={r.html_url} target="_blank" rel="noreferrer" className="block rounded-lg border border-border bg-background p-3 text-sm hover:border-gold/40">
-                      <div className="flex items-center justify-between">
-                        <span className="font-medium">{r.name}</span>
-                        <span className="flex items-center gap-3 text-xs text-muted-foreground">
-                          <span className="inline-flex items-center gap-1"><Star className="h-3 w-3" />{r.stars}</span>
-                          <span className="inline-flex items-center gap-1"><GitFork className="h-3 w-3" />{r.forks}</span>
-                        </span>
-                      </div>
-                      {r.description && <p className="mt-1 text-xs text-muted-foreground">{r.description}</p>}
-                    </a>
-                  ))}
-                </div>
+
               </div>
             )}
             {cf && (
@@ -137,6 +127,8 @@ function PublicCard() {
             )}
           </div>
         )}
+
+        {gh && <GitHubProjects data={gh} />}
 
         {profile.synced_at && (
           <div className="mt-6 text-center text-xs text-muted-foreground">

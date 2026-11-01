@@ -17,11 +17,11 @@ export type RawRepo = {
 };
 
 export type RepoSignals = {
-  readme: boolean;
+  readme: boolean | null;
   languages: Record<string, number>;
 };
 
-export type QualityIndicator = { key: string; label: string; ok: boolean };
+export type QualityIndicator = { key: string; label: string; ok: boolean | null };
 
 export type DeepRepo = {
   name: string;
@@ -38,6 +38,7 @@ export type DeepRepo = {
   score: number;
   grade: "A" | "B" | "C" | "D";
   indicators: QualityIndicator[];
+  signals_complete: boolean;
 };
 
 const DAY = 86_400_000;
@@ -73,11 +74,12 @@ export function scoreRepo(r: RawRepo, s: RepoSignals, now = Date.now()): DeepRep
     score,
     grade,
     indicators,
+    signals_complete: s.readme !== null,
   };
 }
 
 /** Own, non-archived repos ranked by recent push then stars. */
-export function pickImportable(repos: RawRepo[], limit = 8): RawRepo[] {
+export function pickImportable(repos: RawRepo[], limit = Number.POSITIVE_INFINITY): RawRepo[] {
   return repos
     .filter((r) => !r.fork && !r.archived)
     .sort((a, b) => b.stargazers_count - a.stargazers_count || +new Date(b.pushed_at) - +new Date(a.pushed_at))

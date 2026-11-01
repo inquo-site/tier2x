@@ -5,6 +5,8 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { Github, RefreshCw, ExternalLink, Trophy, Star, GitFork, Save, Loader2 } from "lucide-react";
 import { toast } from "sonner";
+import { GitHubProjects } from "@/components/github-projects";
+import { Button } from "@/components/ui/button";
 import { getMyDevProfile, saveDevProfile, syncDevProfile } from "@/lib/dev-profile.functions";
 
 export const Route = createFileRoute("/_authenticated/devprofile")({
@@ -14,6 +16,8 @@ export const Route = createFileRoute("/_authenticated/devprofile")({
       { name: "description", content: "GitHub and Codeforces auto-synced with LeetCode and LinkedIn into one public builder profile." },
       { property: "og:title", content: "Unified Dev Report Card — Tier2X" },
       { property: "og:description", content: "GitHub and Codeforces auto-synced with LeetCode and LinkedIn into one public builder profile." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
       { name: "robots", content: "noindex" },
     ],
   }),
@@ -84,8 +88,9 @@ function DevProfileEditor() {
         location: form.location || null,
       },
     }),
-    onSuccess: () => {
-      toast.success("Report card saved");
+    onSuccess: (result) => {
+      if (result.warnings.length) toast.warning(result.warnings.join(" · "));
+      else toast.success("Report card saved; public GitHub projects imported");
       qc.invalidateQueries({ queryKey: ["my-dev-profile"] });
     },
     onError: (e: any) => toast.error(e?.message ?? "Save failed"),
@@ -120,7 +125,7 @@ function DevProfileEditor() {
         <h2 className="mt-2 font-display text-3xl">Your <span className="italic-serif">report card</span></h2>
 
         <div className="mt-6 space-y-4">
-          <Row label="Public handle" hint="campusx.dev/u/your-handle">
+          <Row label="Public handle" hint="tier2x.lovable.app/u/your-handle">
             <input {...field("handle")} placeholder="suman-kumar" className="input-ink" />
           </Row>
           <div className="grid gap-4 md:grid-cols-2">
@@ -144,14 +149,14 @@ function DevProfileEditor() {
         </div>
 
         <div className="mt-8 flex flex-wrap gap-3">
-          <button onClick={() => saveMut.mutate()} disabled={saveMut.isPending || !form.handle} className="btn-ink">
+          <Button onClick={() => saveMut.mutate()} disabled={saveMut.isPending || !form.handle} className="btn-ink">
             {saveMut.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
             Save
-          </button>
-          <button onClick={() => syncMut.mutate()} disabled={syncMut.isPending || !data?.profile} className="btn-ghost">
+          </Button>
+          <Button variant="outline" onClick={() => syncMut.mutate()} disabled={syncMut.isPending || !data?.profile} className="btn-ghost">
             {syncMut.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <RefreshCw className="h-4 w-4" />}
             Sync GitHub + Codeforces
-          </button>
+          </Button>
           {form.handle && (
             <Link to="/u/$handle" params={{ handle: form.handle }} className="btn-ghost">
               View public card <ExternalLink className="h-3.5 w-3.5" />
@@ -179,22 +184,11 @@ function DevProfileEditor() {
                 <div className="text-xs text-muted-foreground">@{gh.login} · {gh.public_repos} repos · {gh.followers} followers</div>
               </div>
             </div>
-            <div className="mt-5 space-y-2">
-              {gh.top_repos?.map((r: any) => (
-                <a key={r.name} href={r.html_url} target="_blank" rel="noreferrer" className="block rounded-lg border border-border bg-background p-3 text-sm hover:border-gold/40">
-                  <div className="flex items-center justify-between">
-                    <span className="font-medium">{r.name}</span>
-                    <span className="flex items-center gap-3 text-xs text-muted-foreground">
-                      <span className="inline-flex items-center gap-1"><Star className="h-3 w-3" />{r.stars}</span>
-                      <span className="inline-flex items-center gap-1"><GitFork className="h-3 w-3" />{r.forks}</span>
-                    </span>
-                  </div>
-                  {r.description && <p className="mt-1 text-xs text-muted-foreground">{r.description}</p>}
-                </a>
-              ))}
-            </div>
+
           </div>
         )}
+
+        {gh && <GitHubProjects data={gh} />}
 
         {cf && (
           <div className="card-noir rounded-2xl p-6">

@@ -34,3 +34,13 @@ test("stack breakdown is byte-weighted", () => {
     { name: "TS", pct: 80 }, { name: "Go", pct: 20 },
   ]);
 });
+
+test("import includes every eligible repo, not just eight", () => {
+  assert.equal(pickImportable(Array.from({ length: 15 }, (_, i) => ({ ...base, name: `repo-${i}` }))).length, 15);
+});
+
+test("unavailable README stays unknown and score is provisional", () => {
+  const result = scoreRepo(base, { readme: null, languages: {} }, now);
+  assert.equal(result.indicators.find((i) => i.key === "readme")?.ok, null);
+  assert.equal(result.signals_complete, false);
+});
