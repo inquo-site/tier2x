@@ -7,3 +7,4 @@
 - [ ] Restore paused Cloud authentication — blocked: Cloud resume is disabled; needs Cloud settings/support action.
 - [x] Repair signup/login session handling and add email password recovery; forms and recovery guards tested.
 - [ ] Verify signup, login, profile creation, and recovery against the hosted account service — blocked: Cloud paused.
+- [ ] Complete public GitHub repository import, quality indicators, and public profile project showcase; verify persistence and public readback.
