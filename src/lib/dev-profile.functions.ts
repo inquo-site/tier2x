@@ -71,15 +71,23 @@ export const saveDevProfile = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((data: unknown) => SaveSchema.parse(data))
   .handler(async ({ data, context }) => {
-    const { data: previous } = await context.supabase.from("dev_profiles").select("github_username, codeforces_handle").eq("user_id", context.userId).maybeSingle();
+    const { data: previous, error: previousError } = await context.supabase.from("dev_profiles").select("github_username, codeforces_handle").eq("user_id", context.userId).maybeSingle();
+    if (previousError) throw new Error(previousError.message);
+    const warnings: string[] = [];
+    let imported: Awaited<ReturnType<typeof importGitHub>> | undefined;
+    if (data.github_username && previous?.github_username !== data.github_username) {
+      try { imported = await importGitHub(data.github_username); warnings.push(...imported.warnings); }
+      catch (error) { warnings.push(error instanceof Error ? error.message : "GitHub import failed. Use Sync to retry."); }
+    }
     const { error } = await context.supabase
       .from("dev_profiles")
       .upsert({ user_id: context.userId, ...data,
         ...(previous?.github_username !== data.github_username ? { github_data: null } : {}),
         ...(previous?.codeforces_handle !== data.codeforces_handle ? { codeforces_data: null } : {}),
+        ...(imported ? { github_data: imported.data, synced_at: new Date().toISOString() } : {}),
       }, { onConflict: "user_id" });
     if (error) throw new Error(error.message);
-    return { ok: true };
+    return { ok: true, warnings };
   });
 
 export const syncDevProfile = createServerFn({ method: "POST" })
