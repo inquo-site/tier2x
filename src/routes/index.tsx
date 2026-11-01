@@ -6,7 +6,7 @@ import { FeaturedBlogsSection } from "@/components/featured-blogs";
 import { motion } from "motion/react";
 import studentBuilders from "@/assets/student-builders.jpg";
 import { FeatureBento } from "@/components/feature-bento";
-import { KineticBeam, TiltCard } from "@/components/kinetic-scroll";
+import { TiltCard } from "@/components/kinetic-scroll";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -53,7 +53,6 @@ const paths = [
 function Landing() {
   return (
     <MarketingLayout>
-      <KineticBeam />
       <section className="minimal-hero">
         <div className="mx-auto max-w-6xl px-6 py-12 md:px-10 md:py-16">
           <p className="mb-6 text-xs font-medium uppercase tracking-widest text-muted-foreground">India’s student builder workspace</p>
