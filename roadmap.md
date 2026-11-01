@@ -4,7 +4,7 @@
 - [ ] Apply the minimal typography and palette across authentication, workspace, tools, and admin.
 - [ ] Simplify shared workspace navigation and login presentation without changing functionality.
 - [ ] Verify signed-in and signed-out page presentation and navigation.
-- [ ] Restore paused Cloud authentication — blocked: Cloud resume is disabled; needs Cloud settings/support action.
+- [x] Restore paused Cloud authentication — Cloud is running; fresh signup and authenticated profile writes verified.
 - [x] Repair signup/login session handling and add email password recovery; forms and recovery guards tested.
-- [ ] Verify signup, login, profile creation, and recovery against the hosted account service — blocked: Cloud paused.
-- [ ] Complete public GitHub repository import, quality indicators, and public profile project showcase; verify persistence and public readback.
+- [ ] Complete email recovery verification — signup, login and profile persistence verified; reset email inbox/link remains unverified.
+- [x] Complete public GitHub repository import, quality indicators, and public profile project showcase; tested pagination and evidence rules, real octocat import, reload persistence and signed-out desktop/mobile public readback.
