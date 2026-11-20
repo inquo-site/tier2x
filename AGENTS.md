@@ -13,3 +13,4 @@
 - Use the same global semantic design tokens and typography across public pages, authentication, workspace tools, and admin; restrict inverted tokens to intentionally dark feature bands.
 - Keep one shared auth-state subscription in AuthProvider; recovery is a public page gated by the recovery event/token, not an ordinary signed-in session, to prevent password changes through an unrelated session.
 - Import public GitHub metadata through a server-only fetch helper into the user's existing dev_profiles JSON; share the evidence viewer between editor and public profile, preserve saved data on provider failure, and never label metadata scores as code audits or account verification.
+- Keep MongoDB connections request-scoped in a server-only helper, read the URI only inside server handlers, close sockets after use, and suppress driver error details to protect credentials; existing Cloud storage and auth remain unchanged.

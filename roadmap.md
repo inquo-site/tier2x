@@ -1,4 +1,6 @@
 - [x] Remove cut-out layers and intercepted scrolling.
+- [x] Add the saved MongoDB connection without migrating existing data.
+- [ ] Verify the authenticated MongoDB ping — blocked because Lovable Cloud authentication is paused.
 - [x] Redesign the homepage and shared public navigation with a minimal Clarvos-inspired style.
 - [x] Verify desktop and mobile navigation and normal section scrolling.
 - [ ] Apply the minimal typography and palette across authentication, workspace, tools, and admin.
