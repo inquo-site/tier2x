@@ -26,7 +26,10 @@ export const Route = createFileRoute("/ai-company")({
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "keywords", content: "ai company operating system, autonomous ai agents, hire ai team, ai agents india, Tier2X" },
+      { property: "og:url", content: "https://tier2x.in/ai-company" },
     ],
+    links: [{ rel: "canonical", href: "https://tier2x.in/ai-company" }],
   }),
 });
 

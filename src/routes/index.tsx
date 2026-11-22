@@ -10,20 +10,20 @@ import { FeatureBento } from "@/components/feature-bento";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Tier2X — Learn, Build, Connect & Find Tech Opportunities" },
+      { title: "Tier2X — Proof-of-Work Developer Portfolio, Internships & Roadmaps" },
       {
         name: "description",
         content:
-          "Explore Tier2X: learning roadmaps, AI mentorship, GitHub project profiles, peer collaboration, internships, jobs, and career tools in one workspace.",
+          "Built for Tier-2 & Tier-3 engineering students: turn GitHub projects into proof-of-work, find off-campus internships and hackathons, follow AI career roadmaps.",
       },
-      { name: "keywords", content: "off campus jobs India, tier 2 college placements, alumni referral, fresher jobs, Tier2X, Suman Kumar" },
-      { property: "og:title", content: "Tier2X — Learn, Build, Connect & Find Tech Opportunities" },
+      { name: "keywords", content: "proof of work developer portfolio, developer portfolio github, off campus drive, off campus internships for freshers, tech internships for college students, student hackathons india, tier 2 college placements, full stack developer roadmap, dsa preparation roadmap, linkedin profile optimizer, Tier2X" },
+      { property: "og:title", content: "Tier2X — Proof-of-Work Developer Portfolio, Internships & Roadmaps" },
       { property: "og:description", content: "Learning roadmaps, real project evidence, peer connections, and tech opportunities. Discover your next move with Tier2X." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { property: "og:url", content: "https://tier2x.lovable.app/" },
+      { property: "og:url", content: "https://tier2x.in/" },
     ],
-    links: [{ rel: "canonical", href: "https://tier2x.lovable.app/" }],
+    links: [{ rel: "canonical", href: "https://tier2x.in/" }],
     scripts: [
       {
         type: "application/ld+json",
@@ -31,7 +31,7 @@ export const Route = createFileRoute("/")({
           "@context": "https://schema.org",
           "@type": "Organization",
           name: "Tier2X",
-          url: "https://tier2x.lovable.app/",
+          url: "https://tier2x.in/",
           email: "campusx4@gmail.com",
           founder: { "@type": "Person", name: "Suman Kumar" },
           address: { "@type": "PostalAddress", addressLocality: "Purnia", addressRegion: "Bihar", postalCode: "854315", addressCountry: "IN" },

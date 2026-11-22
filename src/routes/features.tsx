@@ -21,8 +21,13 @@ export const Route = createFileRoute("/features")({
       { title: "Features — Tier2X" },
       { name: "description", content: "LinkedIn Optimizer, GitHub & Resume tools, peer rooms, dev report card, hackathons, off-campus jobs, application tracker, and a full prep roadmap." },
       { property: "og:title", content: "Features — Tier2X" },
+      { name: "keywords", content: "linkedin profile optimizer for developers, github portfolio tool, resume fixer, fresher job tracker, student hackathons, coding roadmap" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:url", content: "https://tier2x.in/features" },
       { property: "og:description", content: "The full builder toolkit: LinkedIn/GitHub/Resume optimizer, peer rooms, dev report card, jobs, hackathons, and prep roadmap." },
     ],
+    links: [{ rel: "canonical", href: "https://tier2x.in/features" }],
   }),
 });
 

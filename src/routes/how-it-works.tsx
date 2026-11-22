@@ -29,9 +29,9 @@ export const Route = createFileRoute("/how-it-works")({
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { property: "og:url", content: "https://tier2x.lovable.app/how-it-works" },
+      { property: "og:url", content: "https://tier2x.in/how-it-works" },
     ],
-    links: [{ rel: "canonical", href: "https://tier2x.lovable.app/how-it-works" }],
+    links: [{ rel: "canonical", href: "https://tier2x.in/how-it-works" }],
   }),
 });
 
